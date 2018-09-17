@@ -74,7 +74,9 @@ router.post('/mw', (req, res) => {
 	else {
 		res.status(200).send(
 		{
-			"text": "date selection missing or formatted incorrectly. please retry. (e.g. `/victim mw`) :nerd_face:"
+			"text": "",
+			"text": "_yikes! date selection missing or formatted incorrectly. please retry. (e.g. `/victim mw`)_ :nerd_face:",
+			"text": ""
 		}
 	)}
 })
