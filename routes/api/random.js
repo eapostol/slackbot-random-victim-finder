@@ -44,7 +44,7 @@ router.post('/mw', (req, res) => {
 	const value = monWed[Math.floor(Math.random() * monWed.length)];
 	res.status(200).send(
 		{
-			"text": `${value}`
+			"text": `*${value}* you are the lucky one. thank you and play again. :smile:`
 		}
 	);
 });
