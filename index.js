@@ -3,9 +3,9 @@ const express = require('express');
 const app = express();
 const monWed = require('./classes/mon-wed');
 const tueThu = require('./classes/tue-thu');
-const sat = require('./classes/sat');
+// const sat = require('./classes/sat');
 
-// const sat = monWed.concat(tueThu);  // doesn't work. 
+const sat = monWed.concat(tueThu); 
 
 const port = process.env.PORT || 5000;
 
@@ -31,8 +31,8 @@ app.get('/sat', (req, res) => {
 	res.send(
 		// console.log(sat.length)
 		// console.log(sat)
-		console.log(sat[Math.floor(Math.random() * sat.length)])
-		// sat[Math.floor(Math.random() * sat.length)]
+		// console.log(sat[Math.floor(Math.random() * sat.length)])
+		sat[Math.floor(Math.random() * sat.length)]
 	);
 });
 
