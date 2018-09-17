@@ -1,10 +1,11 @@
 const express = require('express');
 // const bodyParser = require('body-parser');
 const app = express();
-const monWed = require('./mon-wed');
-const tueThu = require('./tue-thu');
+const monWed = require('./classes/mon-wed');
+const tueThu = require('./classes/tue-thu');
+const sat = require('./classes/sat');
 
-const sat = monWed.concat(tueThu);
+// const sat = monWed.concat(tueThu);  // doesn't work. 
 
 const port = process.env.PORT || 5000;
 
