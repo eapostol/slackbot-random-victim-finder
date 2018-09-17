@@ -40,7 +40,7 @@ router.get('/sat', (req, res) => {
 });
 
 // post request
-router.post('/mw', (req, res) => {
+router.post('/', (req, res) => {
 	const mwVictim = monWed[Math.floor(Math.random() * monWed.length)];
 	const tthVictim = tueThu[Math.floor(Math.random() * tueThu.length)];
 	const satVictim = sat[Math.floor(Math.random() * sat.length)];
@@ -74,9 +74,7 @@ router.post('/mw', (req, res) => {
 	else {
 		res.status(200).send(
 		{
-			"text": "",
-			"text": "_yikes! date selection missing or formatted incorrectly. please retry. (e.g. `/victim mw`)_ :nerd_face:",
-			"text": ""
+			"text": "_yikes! date selection missing or formatted incorrectly. please retry. (e.g. `/victim mw`)_ :nerd_face:"
 		}
 	)}
 })
