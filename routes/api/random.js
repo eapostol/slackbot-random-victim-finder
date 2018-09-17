@@ -41,12 +41,42 @@ router.get('/sat', (req, res) => {
 
 // post request
 router.post('/mw', (req, res) => {
-	const value = monWed[Math.floor(Math.random() * monWed.length)];
-	res.status(200).send(
+	const mwVictim = monWed[Math.floor(Math.random() * monWed.length)];
+	const tthVictim = tueThu[Math.floor(Math.random() * tueThu.length)];
+	const satVictim = sat[Math.floor(Math.random() * sat.length)];
+	
+	const requestType = req.body.text;
+	// console.log('1', req)
+	// console.log('2', req.body)
+	console.log('3', requestType);
+
+	if(requestType === 'mw'){
+		res.status(200).send(
+			{
+				"text": `*${mwVictim}* you are the lucky one. thank you and play again. :slightly_smiling_face:`
+			}
+		
+	)}
+	if(requestType === 'tth'){
+		res.status(200).send(
+			{
+				"text": `*${tthVictim}* you are the lucky one. thank you and play again. :slightly_smiling_face:`
+			}
+		
+	)}
+	if(requestType === 'sat'){
+		res.status(200).send(
+			{
+				"text": `*${satVictim}* you are the lucky one. thank you and play again. :slightly_smiling_face:`
+			}
+		
+	)}
+	else {
+		res.status(200).send(
 		{
-			"text": `*${value}* you are the lucky one. thank you and play again. :smile:`
+			"text": "date selection missing or formatted incorrectly. please retry. (e.g. `/victim mw`) :nerd_face:"
 		}
-	);
-});
+	)}
+})
 
 module.exports = router;
