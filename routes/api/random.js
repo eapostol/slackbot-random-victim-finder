@@ -52,8 +52,8 @@ router.post('/', (req, res) => {
 	
 	const requestType = req.body.text;
 	// console.log('1', req)
-	// console.log('2', req.body)
-	console.log('3', requestType);
+	console.log('**** 2', req.body)
+	console.log('**** 3', requestType);
 
 	if(requestType === 'mw'){
 		res.status(200).send(
