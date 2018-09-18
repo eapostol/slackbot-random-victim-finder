@@ -1,5 +1,4 @@
 const express = require('express');
-const bodyParser = require('body-parser');
 const router = express.Router();
 
 const monWed = require('../../classes/mon-wed');
@@ -53,28 +52,28 @@ router.post('/', (req, res) => {
 	if(requestType === 'mw'){
 		res.status(200).send(
 			{
-				"text": `*${mwVictim}* you are the lucky one. thank you and play again. :slightly_smiling_face:`
+				"text": `*${mwVictim}* you are the lucky one. \nThank you and play again. \n:slightly_smiling_face:`
 			}
 		
 	)}
 	if(requestType === 'tth'){
 		res.status(200).send(
 			{
-				"text": `*${tthVictim}* you are the lucky one. thank you and play again. :slightly_smiling_face:`
+				"text": `*${tthVictim}* you are the lucky one. \nThank you and play again. \n:slightly_smiling_face:`
 			}
 		
 	)}
 	if(requestType === 'sat'){
 		res.status(200).send(
 			{
-				"text": `*${satVictim}* you are the lucky one. thank you and play again. :slightly_smiling_face:`
+				"text": `*${satVictim}* you are the lucky one. \nThank you and play again. \n:slightly_smiling_face:`
 			}
 		
 	)}
 	else {
 		res.status(200).send(
 		{
-			"text": "_yikes! date selection missing or formatted incorrectly. please retry. (e.g. `/victim mw`)_ :nerd_face:"
+			"text": "_Yikes! Date selection missing or formatted incorrectly. (e.g. `/victim mw`). \nThank you, come again._ \n:nerd_face:"
 		}
 	)}
 })
