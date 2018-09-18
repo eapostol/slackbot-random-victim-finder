@@ -1,19 +1,15 @@
 {
-	"attachments": [
+	"title": "Find another victim?",
+	"fallback": "Find another victim?",
+	"callback_id": "victime_hunter",
+	"attachment_type": "default",
+	"color": "#3AA3E3",
+	"actions": [
 		{
-			"title": "Find another victim?",
-			"fallback": "Find another victim?",
-			"callback_id": "victime_hunter",
-			"attachment_type": "default",
-			"color": "#3AA3E3",
-			"actions": [
-				{
-					"name": "anotherVictim",
-					"text": "Hunt",
-					"type": "button",
-					"style": "default"
-				}
-			]
+			"name": "anotherVictim",
+			"text": "Hunt",
+			"type": "button",
+			"style": "default"
 		}
 	]
 }

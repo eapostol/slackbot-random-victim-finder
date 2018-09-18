@@ -59,7 +59,11 @@ router.post('/', (req, res) => {
 		res.status(200).send(
 			{
 				"text": `_*${mwVictim}*_ you are the lucky one. \n${goodbye} \n${emoji}`,
-				selectVictim
+				"attachments": [
+					{
+						selectVictim
+					}
+				]
 			}
 	)}
 	if(requestType === 'tth'){
