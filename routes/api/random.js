@@ -1,9 +1,11 @@
 const express = require('express');
 const router = express.Router();
 
-const monWed = require('../../classes/mon-wed');
-const tueThu = require('../../classes/tue-thu');
-const bye = require('../../goodbyes/sayonara');
+const monWed = require('../../options/mwClass');
+const tueThu = require('../../options/tthClass');
+const bye = require('../../options/sayonara');
+const emojis = require('../../options/emojis');
+
 const sat = monWed.concat(tueThu); 
 
 
@@ -45,6 +47,7 @@ router.post('/', (req, res) => {
 	const tthVictim = tueThu[Math.floor(Math.random() * tueThu.length)];
 	const satVictim = sat[Math.floor(Math.random() * sat.length)];
 	const goodbye = bye[Math.floor(Math.random() * bye.length)];
+	const emoji = emojis[Math.floor(Math.random() * emojis.length)];
 	
 	const requestType = req.body.text;
 	// console.log('1', req)
@@ -54,28 +57,28 @@ router.post('/', (req, res) => {
 	if(requestType === 'mw'){
 		res.status(200).send(
 			{
-				"text": `\n_*${mwVictim}*_ you are the lucky one. \n${goodbye} \n:slightly_smiling_face:\n`
+				"text": `_*${mwVictim}*_ you are the lucky one. \n${goodbye} \n${emoji}`
 			}
 		
 	)}
 	if(requestType === 'tth'){
 		res.status(200).send(
 			{
-				"text": `_*${tthVictim}*_ you are the lucky one. \n${goodbye} \n:slightly_smiling_face:`
+				"text": `_*${tthVictim}*_ you are the lucky one. \n${goodbye} \n${emoji}`
 			}
 		
 	)}
 	if(requestType === 'sat'){
 		res.status(200).send(
 			{
-				"text": `\n_*${satVictim}*_ you are the lucky one. \n${goodbye} \n:slightly_smiling_face:\n`
+				"text": `_*${satVictim}*_ you are the lucky one. \n${goodbye} \n${emoji}`
 			}
 		
 	)}
 	else {
 		res.status(200).send(
 		{
-			"text": `\nYikes! \nHmm, something doesn't look right. \n${goodbye} \n:thinking_face:\n`
+			"text": `Yikes! \nHmm, something doesn't look right. \n${goodbye} \n${emoji}`
 		}
 	)}
 })
