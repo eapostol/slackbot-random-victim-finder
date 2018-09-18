@@ -51,13 +51,11 @@ router.post('/', (req, res) => {
 	const emoji = emojis[Math.floor(Math.random() * emojis.length)];
 	
 	const requestType = req.body.text;
-	const secondRequest = JSON.parse(req.body.payload)
 	// console.log('**** 1', req)
 	console.log('**** 2', req.body);
 	console.log('**** 3', req.body.payload);
 	// console.log('**** 4', req.body.payload.callback_id); 
 	// console.log('**** 5', requestType);
-	console.log('**** 6', secondRequest.callback_id);
 
 	if(requestType === 'mw'){
 		res.status(200).send(
@@ -83,7 +81,13 @@ router.post('/', (req, res) => {
 		
 	)}
 	// clicking button
-	if(req.body.callback_id === 'hunt_victim_mw'){
+	// if(req.body.callback_id === 'hunt_victim_mw'){
+	if(req.body.payload){
+
+		const secondRequest = JSON.parse(req.body.payload);
+		console.log('**** 6', secondRequest);
+
+
 		res.status(200).send(
 			{
 				"text": "this works!"
