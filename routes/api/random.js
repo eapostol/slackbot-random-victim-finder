@@ -85,7 +85,7 @@ router.post('/', (req, res) => {
 	if(req.body.payload){
 
 		const secondRequest = JSON.parse(req.body.payload);
-		console.log('**** 6', secondRequest);
+		console.log('**** 6', secondRequest.callback_id);
 
 
 		res.status(200).send(
