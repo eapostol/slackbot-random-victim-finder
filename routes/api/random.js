@@ -52,28 +52,28 @@ router.post('/', (req, res) => {
 	if(requestType === 'mw'){
 		res.status(200).send(
 			{
-				"text": `_*${mwVictim}*_ you are the lucky one. \n\nThank you, come again. \n:slightly_smiling_face:`
+				"text": `\n_*${mwVictim}*_ you are the lucky one. \nThank you, come again. \n:slightly_smiling_face:\n`
 			}
 		
 	)}
 	if(requestType === 'tth'){
 		res.status(200).send(
 			{
-				"text": `*${tthVictim}* you are the lucky one. \nThank you, come again. \n:slightly_smiling_face:`
+				"text": `\n_*${tthVictim}*_ you are the lucky one. \nThank you, come again. \n:slightly_smiling_face:\n`
 			}
 		
 	)}
 	if(requestType === 'sat'){
 		res.status(200).send(
 			{
-				"text": `*${satVictim}* you are the lucky one. \nThank you, come again. \n:slightly_smiling_face:`
+				"text": `\n_*${satVictim}*_ you are the lucky one. \nThank you, come again. \n:slightly_smiling_face:\n`
 			}
 		
 	)}
 	else {
 		res.status(200).send(
 		{
-			"text": "_Yikes! Date selection missing or formatted incorrectly. (e.g. `/victim mw`). \nThank you, come again._ \n:nerd_face:"
+			"text": "\n_Yikes! Date selection missing or formatted incorrectly. (e.g. `/victim mw`). \nThank you, come again._ \n:nerd_face:\n"
 		}
 	)}
 })
