@@ -58,7 +58,7 @@ router.post('/', (req, res) => {
 	if(requestType === 'mw'){
 		res.status(200).send(
 			{
-				"text": `_*${mwVictim}*_ you are the lucky one. \n${goodbye} \n${emoji}`,
+				"text": `Hey _*${mwVictim}*_ you are the lucky one. \n${goodbye} \n${emoji}`,
 				"attachments": [
 					selectVictim
 				]
@@ -67,21 +67,29 @@ router.post('/', (req, res) => {
 	if(requestType === 'tth'){
 		res.status(200).send(
 			{
-				"text": `_*${tthVictim}*_ you are the lucky one. \n${goodbye} \n${emoji}`
+				"text": `Hey _*${tthVictim}*_ you are the lucky one. \n${goodbye} \n${emoji}`
 			}
 		
 	)}
 	if(requestType === 'sat'){
 		res.status(200).send(
 			{
-				"text": `_*${satVictim}*_ you are the lucky one. \n${goodbye} \n${emoji}`
+				"text": `Hey _*${satVictim}*_ you are the lucky one. \n${goodbye} \n${emoji}`
+			}
+		
+	)}
+	// clicking button
+	if(req.body.callback_id === 'hunt_victim'){
+		res.status(200).send(
+			{
+				"text": "this works!"
 			}
 		
 	)}
 	else {
 		res.status(200).send(
 		{
-			"text": `Yikes! \nHmm, something doesn't look right. \n${goodbye} \n${emoji}`
+			"text": `Zoinks! \nSomething doesn't look right. \nPlease try again. \n${emoji}`
 		}
 	)}
 })
