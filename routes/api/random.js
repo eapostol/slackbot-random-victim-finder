@@ -67,14 +67,20 @@ router.post('/', (req, res) => {
 	if(requestType === 'tth'){
 		res.status(200).send(
 			{
-				"text": `Hey _*${tthVictim}*_ you are the lucky one. \n${goodbye} \n${emoji}`
+				"text": `Hey _*${tthVictim}*_ you are the lucky one. \n${goodbye} \n${emoji}`,
+				"attachments": [
+					selectVictim.tth
+				]
 			}
 		
 	)}
 	if(requestType === 'sat'){
 		res.status(200).send(
 			{
-				"text": `Hey _*${satVictim}*_ you are the lucky one. \n${goodbye} \n${emoji}`
+				"text": `Hey _*${satVictim}*_ you are the lucky one. \n${goodbye} \n${emoji}`,
+				"attachments": [
+					selectVictim.sat
+				]
 			}
 		
 	)}
@@ -89,19 +95,28 @@ router.post('/', (req, res) => {
 		if(secondRequest.callback_id === 'hunt_victim_mw'){
 			res.status(200).send(
 				{
-					"text": `Hey _*${mwVictim}*_ you are the lucky one. \n${goodbye} \n${emoji}`
+					"text": `Hey _*${mwVictim}*_ you are the lucky one. \n${goodbye} \n${emoji}`,
+					"attachments": [
+						selectVictim.mw
+					]
 				}
 		)}
 		if(secondRequest.callback_id === 'hunt_victim_tth'){
 			res.status(200).send(
 				{
-					"text": `Hey _*${tthVictim}*_ you are the lucky one. \n${goodbye} \n${emoji}`
+					"text": `Hey _*${tthVictim}*_ you are the lucky one. \n${goodbye} \n${emoji}`,
+					"attachments": [
+						selectVictim.tth
+					]
 				}
 		)}
 		if(secondRequest.callback_id === 'hunt_victim_sat'){
 			res.status(200).send(
 				{
-					"text": `Hey _*${satVictim}*_ you are the lucky one. \n${goodbye} \n${emoji}`
+					"text": `Hey _*${satVictim}*_ you are the lucky one. \n${goodbye} \n${emoji}`,
+					"attachments": [
+						selectVictim.sat
+					]
 				}
 		)} else {
 			res.status(200).send(
