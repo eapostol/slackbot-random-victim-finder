@@ -59,7 +59,7 @@ router.post('/', (req, res) => {
 	if(requestType === 'tth'){
 		res.status(200).send(
 			{
-				"text": `\n_*${tthVictim}*_ you are the lucky one. \nThank you, come again. \n:slightly_smiling_face:\n`
+				"text": `_*${tthVictim}*_ you are the lucky one. \nThank you, come again. \n:slightly_smiling_face:`
 			}
 		
 	)}
@@ -73,7 +73,7 @@ router.post('/', (req, res) => {
 	else {
 		res.status(200).send(
 		{
-			"text": "\n_Yikes! Date selection missing or formatted incorrectly. (e.g. `/victim mw`). \nThank you, come again._ \n:nerd_face:\n"
+			"text": "\nYikes! Date selection missing or formatted incorrectly. (e.g. `/victim mw`). \nThank you, come again. \n:nerd_face:\n"
 		}
 	)}
 })
