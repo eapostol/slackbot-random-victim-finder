@@ -5,7 +5,7 @@ const monWed = require('../../options/mwClass');
 const tueThu = require('../../options/tthClass');
 const bye = require('../../options/sayonara');
 const emojis = require('../../options/emojis');
-const selectVictim = require('../../options/anotherVictim.json');
+const selectVictim = require('../../options/anotherVictim');
 
 const sat = monWed.concat(tueThu); 
 
@@ -53,8 +53,9 @@ router.post('/', (req, res) => {
 	const requestType = req.body.text;
 	// console.log('1', req)
 	console.log('**** 2', req.body);
-	// console.log('**** 2', req.body.payload.callback_id); 
-	// console.log('**** 3', requestType);
+	console.log('**** 3', req.body.payload);
+	// console.log('**** 4', req.body.payload.callback_id); 
+	// console.log('**** 5', requestType);
 
 	if(requestType === 'mw'){
 		res.status(200).send(
@@ -80,7 +81,7 @@ router.post('/', (req, res) => {
 		
 	)}
 	// clicking button
-	if(req.body.callback_id === 'hunt_victim'){
+	if(req.body.callback_id === 'hunt_victim_mw'){
 		res.status(200).send(
 			{
 				"text": "this works!"
