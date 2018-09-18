@@ -1,4 +1,5 @@
 module.exports = [
+	"Seymour Butz",
 	"Angel Aquas",
 	"Beverly Reyes",
 	"Bryan Pacana",
