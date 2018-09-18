@@ -2,7 +2,7 @@
 	"attachments": [
 		{
 			"title": "Find another victim?",
-			"fallback": "Find another victim?"
+			"fallback": "Find another victim?",
 			"callback_id": "victime_hunter",
 			"attachment_type": "default",
 			"color": "#3AA3E3",
