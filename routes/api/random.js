@@ -52,10 +52,8 @@ router.post('/', (req, res) => {
 	
 	const requestType = req.body.text;
 	// console.log('**** 1', req)
-	console.log('**** 2', req.body);
-	console.log('**** 3', req.body.payload);
-	// console.log('**** 4', req.body.payload.callback_id); 
-	// console.log('**** 5', requestType);
+	// console.log('**** 2', req.body);
+	// console.log('**** 3', requestType);
 
 	if(requestType === 'mw'){
 		res.status(200).send(
@@ -83,18 +81,35 @@ router.post('/', (req, res) => {
 	// clicking button
 	// if(req.body.callback_id === 'hunt_victim_mw'){
 	if(req.body.payload){
-
 		const secondRequest = JSON.parse(req.body.payload);
-		console.log('**** 6', secondRequest.callback_id);
+		// console.log('**** 4', req.body.payload);
+		// console.log('**** 5', req.body.payload.callback_id); 
+		// console.log('**** 6', secondRequest.callback_id);
 
-
-		res.status(200).send(
+		if(secondRequest.callback_id === 'hunt_victim_mw'){
+			res.status(200).send(
+				{
+					"text": `Hey _*${mwVictim}*_ you are the lucky one. \n${goodbye} \n${emoji}`
+				}
+		)}
+		if(secondRequest.callback_id === 'hunt_victim_tth'){
+			res.status(200).send(
+				{
+					"text": `Hey _*${tthVictim}*_ you are the lucky one. \n${goodbye} \n${emoji}`
+				}
+		)}
+		if(secondRequest.callback_id === 'hunt_victim_sat'){
+			res.status(200).send(
+				{
+					"text": `Hey _*${satVictim}*_ you are the lucky one. \n${goodbye} \n${emoji}`
+				}
+		)} else {
+			res.status(200).send(
 			{
-				"text": "this works!"
+				"text": `Zoinks! \nSomething doesn't look right. \nPlease try again. \n${emoji}`
 			}
-		
-	)}
-	else {
+		)}
+	} else {
 		res.status(200).send(
 		{
 			"text": `Zoinks! \nSomething doesn't look right. \nPlease try again. \n${emoji}`
