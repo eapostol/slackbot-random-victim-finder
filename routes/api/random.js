@@ -73,7 +73,7 @@ router.post('/', (req, res) => {
 	else {
 		res.status(200).send(
 		{
-			"text": "\nYikes! Date selection missing or formatted incorrectly. (e.g. `/victim mw`). \nThank you, come again. \n:nerd_face:\n"
+			"text": "\nYikes! \nDate selection missing or formatted incorrectly. (e.g. `/victim mw`). \nThank you, come again. \n:nerd_face:\n"
 		}
 	)}
 })
