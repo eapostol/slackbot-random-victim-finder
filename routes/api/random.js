@@ -62,7 +62,7 @@ router.post('/', (req, res) => {
 			{
 				"text": `Hey _*${mwVictim}*_ you are the lucky one. \n${goodbye} \n${emoji}`,
 				"attachments": [
-					selectVictim
+					selectVictim.mw
 				]
 			}
 	)}
