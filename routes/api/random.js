@@ -52,7 +52,7 @@ router.post('/', (req, res) => {
 	
 	const requestType = req.body.text;
 	// console.log('1', req)
-	console.log('**** 2', req.body.payload)
+	console.log('**** 2', req.body.payload.callback_id)
 	// console.log('**** 3', requestType);
 
 	if(requestType === 'mw'){
