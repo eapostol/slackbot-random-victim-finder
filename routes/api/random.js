@@ -73,7 +73,7 @@ router.post('/', (req, res) => {
 	else {
 		res.status(200).send(
 		{
-			"text": "\nYikes! \nSomething doesn't look right. \nThank you, come again. \n:nerd_face:\n"
+			"text": "\nYikes! \nHmm, something doesn't look right. \nThank you, come again. \n:thinking_face:\n"
 		}
 	)}
 })
