@@ -5,6 +5,7 @@ const monWed = require('../../options/mwClass');
 const tueThu = require('../../options/tthClass');
 const bye = require('../../options/sayonara');
 const emojis = require('../../options/emojis');
+const selectVictim = require('../../options/anotherVictim.json');
 
 const sat = monWed.concat(tueThu); 
 
@@ -58,8 +59,8 @@ router.post('/', (req, res) => {
 		res.status(200).send(
 			{
 				"text": `_*${mwVictim}*_ you are the lucky one. \n${goodbye} \n${emoji}`
-			}
-		
+			},
+			selectVictim
 	)}
 	if(requestType === 'tth'){
 		res.status(200).send(
