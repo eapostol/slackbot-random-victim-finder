@@ -52,21 +52,21 @@ router.post('/', (req, res) => {
 	if(requestType === 'mw'){
 		res.status(200).send(
 			{
-				"text": `*${mwVictim}* you are the lucky one. \nThank you and play again. \n:slightly_smiling_face:`
+				"text": `_*${mwVictim}*_ you are the lucky one. \n\nThank you, come again. \n:slightly_smiling_face:`
 			}
 		
 	)}
 	if(requestType === 'tth'){
 		res.status(200).send(
 			{
-				"text": `*${tthVictim}* you are the lucky one. \nThank you and play again. \n:slightly_smiling_face:`
+				"text": `*${tthVictim}* you are the lucky one. \nThank you, come again. \n:slightly_smiling_face:`
 			}
 		
 	)}
 	if(requestType === 'sat'){
 		res.status(200).send(
 			{
-				"text": `*${satVictim}* you are the lucky one. \nThank you and play again. \n:slightly_smiling_face:`
+				"text": `*${satVictim}* you are the lucky one. \nThank you, come again. \n:slightly_smiling_face:`
 			}
 		
 	)}
