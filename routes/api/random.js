@@ -58,9 +58,9 @@ router.post('/', (req, res) => {
 	if(requestType === 'mw'){
 		res.status(200).send(
 			{
-				"text": `_*${mwVictim}*_ you are the lucky one. \n${goodbye} \n${emoji}`
-			},
-			selectVictim
+				"text": `_*${mwVictim}*_ you are the lucky one. \n${goodbye} \n${emoji}`,
+				selectVictim
+			}
 	)}
 	if(requestType === 'tth'){
 		res.status(200).send(
