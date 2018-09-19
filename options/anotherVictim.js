@@ -9,7 +9,7 @@ module.exports.mw = {
 			"name": "anotherVictim",
 			"text": "Hunt",
 			"type": "button",
-			"style": "default"
+			"style": "danger"
 		}
 	]
 }
@@ -25,7 +25,7 @@ module.exports.tth = {
 			"name": "anotherVictim",
 			"text": "Hunt",
 			"type": "button",
-			"style": "primary"
+			"style": "danger"
 		}
 	]
 }
