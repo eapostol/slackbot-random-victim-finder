@@ -60,8 +60,7 @@ module.exports = [
 	":neutral_face:",
 	":no_mouth:",
 	":innocent:",
-	":alien:",
-	":hankey:"
+	":alien:"
 ]
 
 /*

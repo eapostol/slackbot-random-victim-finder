@@ -3,7 +3,7 @@ module.exports.mw = {
 	"fallback": "Click button to find another victim.",
 	"callback_id": "hunt_victim_mw",
 	"attachment_type": "default",
-	"color": "#3AA3E3",
+	"color": "#38f5be",
 	"actions": [
 		{
 			"name": "anotherVictim",
@@ -19,7 +19,7 @@ module.exports.tth = {
 	"fallback": "Click button to find another victim.",
 	"callback_id": "hunt_victim_tth",
 	"attachment_type": "default",
-	"color": "#3AA3E3",
+	"color": "#7ee0ff",
 	"actions": [
 		{
 			"name": "anotherVictim",
@@ -35,7 +35,7 @@ module.exports.sat = {
 	"fallback": "Click button to find another victim.",
 	"callback_id": "hunt_victim_sat",
 	"attachment_type": "default",
-	"color": "#3AA3E3",
+	"color": "#c481fb",
 	"actions": [
 		{
 			"name": "anotherVictim",

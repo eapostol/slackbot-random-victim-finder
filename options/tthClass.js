@@ -13,7 +13,7 @@ module.exports = [
 	"Edward Kim",
 	"Grant Huang",
 	"Juan Salas",
-	"luis moreno",
+	"Luis Moreno",
 	"Marcellus Jones",
 	"Nare Baghumyan",
 	"Omar Carmona",

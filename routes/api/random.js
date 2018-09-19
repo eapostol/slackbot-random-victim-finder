@@ -3,9 +3,10 @@ const router = express.Router();
 
 const monWed = require('../../options/mwClass');
 const tueThu = require('../../options/tthClass');
-const bye = require('../../options/sayonara');
-const emojis = require('../../options/emojis');
-const selectVictim = require('../../options/anotherVictim');
+const bye = require('../../options/bye');
+const emojis = require('../../optidons/emojis');
+const anotherVictim = require('../../options/anotherVictim');
+const lucky = require('../../options/lucky');
 
 const sat = monWed.concat(tueThu); 
 
@@ -47,7 +48,8 @@ router.post('/', (req, res) => {
 	const mwVictim = monWed[Math.floor(Math.random() * monWed.length)];
 	const tthVictim = tueThu[Math.floor(Math.random() * tueThu.length)];
 	const satVictim = sat[Math.floor(Math.random() * sat.length)];
-	const goodbye = bye[Math.floor(Math.random() * bye.length)];
+	const byeMsg = bye[Math.floor(Math.random() * bye.length)];
+	const luckyMsg = lucky[Math.floor(Math.random() * lucky.length)];
 	const emoji = emojis[Math.floor(Math.random() * emojis.length)];
 	
 	const requestType = req.body.text;
@@ -58,18 +60,18 @@ router.post('/', (req, res) => {
 	if(requestType === 'mw'){
 		res.status(200).send(
 			{
-				"text": `Hey _*${mwVictim}*_ you are the lucky one. \n${goodbye} \n${emoji}`,
+				"text": `_*${mwVictim}*_${luckyMsg} \n${byeMsg} \n${emoji}`,
 				"attachments": [
-					selectVictim.mw
+					anotherVictim.mw
 				]
 			}
 	)}
 	if(requestType === 'tth'){
 		res.status(200).send(
 			{
-				"text": `Hey _*${tthVictim}*_ you are the lucky one. \n${goodbye} \n${emoji}`,
+				"text": `_*${tthVictim}*_${luckyMsg} \n${byeMsg} \n${emoji}`,
 				"attachments": [
-					selectVictim.tth
+					anotherVictim.tth
 				]
 			}
 		
@@ -77,9 +79,9 @@ router.post('/', (req, res) => {
 	if(requestType === 'sat'){
 		res.status(200).send(
 			{
-				"text": `Hey _*${satVictim}*_ you are the lucky one. \n${goodbye} \n${emoji}`,
+				"text": `_*${satVictim}*_${luckyMsg} \n${byeMsg} \n${emoji}`,
 				"attachments": [
-					selectVictim.sat
+					anotherVictim.sat
 				]
 			}
 		
@@ -95,27 +97,27 @@ router.post('/', (req, res) => {
 		if(secondRequest.callback_id === 'hunt_victim_mw'){
 			res.status(200).send(
 				{
-					"text": `Hey _*${mwVictim}*_ you are the lucky one. \n${goodbye} \n${emoji}`,
+					"text": `_*${mwVictim}*_${luckyMsg} \n${byeMsg} \n${emoji}`,
 					"attachments": [
-						selectVictim.mw
+						anotherVictim.mw
 					]
 				}
 		)}
 		if(secondRequest.callback_id === 'hunt_victim_tth'){
 			res.status(200).send(
 				{
-					"text": `Hey _*${tthVictim}*_ you are the lucky one. \n${goodbye} \n${emoji}`,
+					"text": `_*${tthVictim}*_${luckyMsg} \n${byeMsg} \n${emoji}`,
 					"attachments": [
-						selectVictim.tth
+						anotherVictim.tth
 					]
 				}
 		)}
 		if(secondRequest.callback_id === 'hunt_victim_sat'){
 			res.status(200).send(
 				{
-					"text": `Hey _*${satVictim}*_ you are the lucky one. \n${goodbye} \n${emoji}`,
+					"text": `_*${satVictim}*_${luckyMsg} \n${byeMsg} \n${emoji}`,
 					"attachments": [
-						selectVictim.sat
+						anotherVictim.sat
 					]
 				}
 		)} else {
