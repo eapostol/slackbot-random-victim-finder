@@ -4,7 +4,7 @@ const router = express.Router();
 const monWed = require('../../options/mwClass');
 const tueThu = require('../../options/tthClass');
 const bye = require('../../options/bye');
-const emojis = require('../../optidons/emojis');
+const emojis = require('../../options/emojis');
 const anotherVictim = require('../../options/anotherVictim');
 const lucky = require('../../options/lucky');
 
