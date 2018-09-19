@@ -25,7 +25,7 @@ module.exports.tth = {
 			"name": "anotherVictim",
 			"text": "Hunt",
 			"type": "button",
-			"style": "default"
+			"style": "primary"
 		}
 	]
 }
@@ -41,7 +41,7 @@ module.exports.sat = {
 			"name": "anotherVictim",
 			"text": "Hunt",
 			"type": "button",
-			"style": "default"
+			"style": "danger"
 		}
 	]
 }
