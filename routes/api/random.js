@@ -22,7 +22,7 @@ router.post('/', (req, res) => {
 	const mwVictim = function(){
 		monWed[Math.floor(Math.random() * monWed.length)];
 	}
-	console.log('******* mwVictim.name', mwVictim.name)
+	console.log('******* mwVictim.name', mwVictim());
 	const tthVictim = tueThu[Math.floor(Math.random() * tueThu.length)];
 	const satVictim = sat[Math.floor(Math.random() * sat.length)];
 	const byeMsg = bye[Math.floor(Math.random() * bye.length)];
@@ -39,7 +39,7 @@ router.post('/', (req, res) => {
 
 		res.status(200).send(
 			{
-				"text": `_*${mwVictim}*_${luckyMsg} \n${byeMsg} \n${emoji}`,
+				"text": '_*'+mwVictim()+'*_'+`${luckyMsg} \n${byeMsg} \n${emoji}`,
 				"attachments": [
 					anotherVictim.mw
 				]
