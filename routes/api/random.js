@@ -126,7 +126,7 @@ router.post('/', (req, res) => {
 		if(secondRequest.callback_id === 'hunt_victim_mw'){
 			res.status(200).send(
 				{
-					"text": `_*${mwVictim}*_${luckyMsg} \n${byeMsg} \n${emoji}`,
+					"text": `_*${mwVictimTemp}*_${luckyMsg} \n${byeMsg} \n${emoji}`,
 					"attachments": [
 						anotherVictim.mw
 					]
