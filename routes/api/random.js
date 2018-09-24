@@ -28,7 +28,7 @@ let satVictimSelected = [];
 
 // post request
 router.post('/', (req, res) => {
-	// const mwVictim = monWed[Math.floor(Math.random() * monWed.length)];
+	mwVictim = mwVictim();
 	// const tthVictim = tueThu[Math.floor(Math.random() * tueThu.length)];
 	// const satVictim = sat[Math.floor(Math.random() * sat.length)];
 	const byeMsg = bye[Math.floor(Math.random() * bye.length)];
@@ -42,10 +42,27 @@ router.post('/', (req, res) => {
 
 	if(requestType === 'mw'){
 		// if `mwVictim` is in `mwVictimSelected` then rerun function expression
+		for (let present of mwVictimSelected){
+			if (present === mwVictim){
+				mwVictim();
+				console.log('***** present', present);
+				console.log('***** mwVictim', mwVictim);
+			} else {
+				mwVictimSelected.push(mwVictim);
+				res.status(200).send(
+					{
+						"text": `_*${mwVictim}*_${luckyMsg} \n${byeMsg} \n${emoji}`,
+						"attachments": [
+							anotherVictim.mw
+						]
+					}
+				)
+			}
+		}
 
 		res.status(200).send(
 			{
-				"text": '_*'+mwVictim()+'*_'+`${luckyMsg} \n${byeMsg} \n${emoji}`,
+				"text": `_*${mwVictim}*_${luckyMsg} \n${byeMsg} \n${emoji}`,
 				"attachments": [
 					anotherVictim.mw
 				]
@@ -54,7 +71,7 @@ router.post('/', (req, res) => {
 	if(requestType === 'tth'){
 		res.status(200).send(
 			{
-				"text": '_*'+tthVictim()+'*_'+`${luckyMsg} \n${byeMsg} \n${emoji}`,
+				"text": `_*${tthVictim}*_${luckyMsg} \n${byeMsg} \n${emoji}`,
 				"attachments": [
 					anotherVictim.tth
 				]
@@ -64,7 +81,7 @@ router.post('/', (req, res) => {
 	if(requestType === 'sat'){
 		res.status(200).send(
 			{
-				"text": '_*'+satVictim()+'*_'+`${luckyMsg} \n${byeMsg} \n${emoji}`,
+				"text": `_*${satVictim}*_${luckyMsg} \n${byeMsg} \n${emoji}`,
 				"attachments": [
 					anotherVictim.sat
 				]
