@@ -10,7 +10,7 @@ const lucky = require('../../options/lucky');
 
 const sat = monWed.concat(tueThu); 
 
-function mwVictim() {
+const mwVictim = () => {
 	return monWed[Math.floor(Math.random() * monWed.length)];
 }
 console.log('******* mwVictim', mwVictim());
