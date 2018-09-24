@@ -13,7 +13,12 @@ const sat = monWed.concat(tueThu);
 const mwVictim = () => {
 	return monWed[Math.floor(Math.random() * monWed.length)];
 }
-console.log('******* mwVictim', mwVictim());
+const tthVictim = () => {
+	return tueThu[Math.floor(Math.random() * tueThu.length)];
+}
+const satVictim = () => { 
+	return sat[Math.floor(Math.random() * sat.length)];
+}
 
 let mwVictimSelected = [];
 let tthVictimSelected = [];
@@ -24,8 +29,8 @@ let satVictimSelected = [];
 // post request
 router.post('/', (req, res) => {
 	// const mwVictim = monWed[Math.floor(Math.random() * monWed.length)];
-	const tthVictim = tueThu[Math.floor(Math.random() * tueThu.length)];
-	const satVictim = sat[Math.floor(Math.random() * sat.length)];
+	// const tthVictim = tueThu[Math.floor(Math.random() * tueThu.length)];
+	// const satVictim = sat[Math.floor(Math.random() * sat.length)];
 	const byeMsg = bye[Math.floor(Math.random() * bye.length)];
 	const luckyMsg = lucky[Math.floor(Math.random() * lucky.length)];
 	const emoji = emojis[Math.floor(Math.random() * emojis.length)];
@@ -49,7 +54,7 @@ router.post('/', (req, res) => {
 	if(requestType === 'tth'){
 		res.status(200).send(
 			{
-				"text": `_*${tthVictim}*_${luckyMsg} \n${byeMsg} \n${emoji}`,
+				"text": '_*'+tthVictim()+'*_'+`${luckyMsg} \n${byeMsg} \n${emoji}`,
 				"attachments": [
 					anotherVictim.tth
 				]
@@ -59,7 +64,7 @@ router.post('/', (req, res) => {
 	if(requestType === 'sat'){
 		res.status(200).send(
 			{
-				"text": `_*${satVictim}*_${luckyMsg} \n${byeMsg} \n${emoji}`,
+				"text": '_*'+satVictim()+'*_'+`${luckyMsg} \n${byeMsg} \n${emoji}`,
 				"attachments": [
 					anotherVictim.sat
 				]
