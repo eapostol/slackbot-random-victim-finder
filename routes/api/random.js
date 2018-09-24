@@ -20,7 +20,19 @@ const satVictim = () => {
 	return sat[Math.floor(Math.random() * sat.length)];
 }
 
-let mwVictimSelected = [];
+let mwVictimSelected = ["Angel Aquas",
+"Beverly Reyes",
+"Bryan Pacana",
+"Bryan Tran",
+"Freddie Talai",
+"Garry Maghari",
+"German Pineda",
+"Hadi Burpee",
+"Jacob Adler",
+"Jobi Mathai",
+"Joseph Clarke",
+"Louis McGruder",
+"Lynn Thompson"];
 let tthVictimSelected = [];
 let satVictimSelected = [];
 
