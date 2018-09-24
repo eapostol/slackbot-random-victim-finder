@@ -43,21 +43,34 @@ router.post('/', (req, res) => {
 	if(requestType === 'mw'){
 		// if `mwVictim` is in `mwVictimSelected` then rerun function expression
 		console.log('mw hit');
-		for (let present of mwVictimSelected){
-			if (present === mwVictimTemp){
-				mwVictim();
-				console.log('***** present', present);
-				console.log('***** mwVictimTemp', mwVictimTemp);
-			} else {
-				mwVictimSelected.push(mwVictim);
-				res.status(200).send(
-					{
-						"text": `_*${mwVictimTemp}*_${luckyMsg} \n${byeMsg} \n${emoji}`,
-						"attachments": [
-							anotherVictim.mw
-						]
-					}
-				)
+		if (!mwVictimSelected.length){
+			console.log('mw hit - nothing in array');
+			res.status(200).send(
+				{
+					"text": `_*${mwVictimTemp}*_${luckyMsg} \n${byeMsg} \n${emoji}`,
+					"attachments": [
+						anotherVictim.mw
+					]
+				}
+			)
+		} else {
+			console.log('mw hit - something in array');
+			for (let present of mwVictimSelected){
+				if (present === mwVictimTemp){
+					mwVictim();
+					console.log('***** present', present);
+					console.log('***** mwVictimTemp', mwVictimTemp);
+				} else {
+					mwVictimSelected.push(mwVictim);
+					res.status(200).send(
+						{
+							"text": `_*${mwVictimTemp}*_${luckyMsg} \n${byeMsg} \n${emoji}`,
+							"attachments": [
+								anotherVictim.mw
+							]
+						}
+					)
+				}
 			}
 		}
 
