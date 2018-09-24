@@ -10,39 +10,44 @@ const lucky = require('../../options/lucky');
 
 const sat = monWed.concat(tueThu); 
 
-const mwVictim = () => {
-	return monWed[Math.floor(Math.random() * monWed.length)];
-}
-const tthVictim = () => {
-	return tueThu[Math.floor(Math.random() * tueThu.length)];
-}
-const satVictim = () => { 
-	return sat[Math.floor(Math.random() * sat.length)];
-}
 
-let mwVictimSelected = ["Angel Aquas",
-"Beverly Reyes",
-"Bryan Pacana",
-"Bryan Tran",
-"Freddie Talai",
-"Garry Maghari",
-"German Pineda",
-"Hadi Burpee",
-"Jacob Adler",
-"Jobi Mathai",
-"Joseph Clarke",
-"Louis McGruder",
-"Lynn Thompson"];
-let tthVictimSelected = [];
-let satVictimSelected = [];
+// `/api/random/test`
+router.get('/test', (req, res) =>
+	res.json({ msg: "this works"})
+);
 
-// run set timeout function once a post request comes through. at the end, reset all the let variables above. every new set timeout function call resets the clock back to zero.
+router.get('/', (req, res) => {
+	res.send(
+		'Hello There'
+	);
+});
+
+router.get('/mw', (req, res) => {
+	res.send(
+		monWed[Math.floor(Math.random() * monWed.length)]
+	);
+});
+
+router.get('/tth', (req, res) => {
+	res.send(
+		tueThu[Math.floor(Math.random() * tueThu.length)]
+	);
+});
+
+router.get('/sat', (req, res) => {
+	res.send(
+		// console.log(sat.length)
+		// console.log(sat)
+		// console.log(sat[Math.floor(Math.random() * sat.length)])
+		sat[Math.floor(Math.random() * sat.length)]
+	);
+});
 
 // post request
 router.post('/', (req, res) => {
-	let mwVictimTemp = mwVictim();
-	// const tthVictim = tueThu[Math.floor(Math.random() * tueThu.length)];
-	// const satVictim = sat[Math.floor(Math.random() * sat.length)];
+	const mwVictim = monWed[Math.floor(Math.random() * monWed.length)];
+	const tthVictim = tueThu[Math.floor(Math.random() * tueThu.length)];
+	const satVictim = sat[Math.floor(Math.random() * sat.length)];
 	const byeMsg = bye[Math.floor(Math.random() * bye.length)];
 	const luckyMsg = lucky[Math.floor(Math.random() * lucky.length)];
 	const emoji = emojis[Math.floor(Math.random() * emojis.length)];
@@ -53,48 +58,14 @@ router.post('/', (req, res) => {
 	// console.log('**** 3', requestType);
 
 	if(requestType === 'mw'){
-		// if `mwVictim` is in `mwVictimSelected` then rerun function expression
-		console.log('mw hit');
-		if (!mwVictimSelected.length){
-			console.log('mw hit - nothing in array');
-			res.status(200).send(
-				{
-					"text": `_*${mwVictimTemp}*_${luckyMsg} \n${byeMsg} \n${emoji}`,
-					"attachments": [
-						anotherVictim.mw
-					]
-				}
-			)
-		} else {
-			console.log('mw hit - something in array');
-			for (let present of mwVictimSelected){
-				console.log('***** present 1', present);
-				if (mwVictimTemp === mwVictimSelected.filter(()=>{return present})){
-					mwVictim();
-					break;
-				} else {
-					mwVictimSelected.push(mwVictim);
-					res.status(200).send(
-						{
-							"text": `_*${mwVictimTemp}*_${luckyMsg} \n${byeMsg} \n${emoji}`,
-							"attachments": [
-								anotherVictim.mw
-							]
-						}
-					)
-				}
+		res.status(200).send(
+			{
+				"text": `_*${mwVictim}*_${luckyMsg} \n${byeMsg} \n${emoji}`,
+				"attachments": [
+					anotherVictim.mw
+				]
 			}
-		}
-
-		// res.status(200).send(
-		// 	{
-		// 		"text": `_*${mwVictim}*_${luckyMsg} \n${byeMsg} \n${emoji}`,
-		// 		"attachments": [
-		// 			anotherVictim.mw
-		// 		]
-		// 	}
-		// )
-	}
+	)}
 	if(requestType === 'tth'){
 		res.status(200).send(
 			{
@@ -126,7 +97,7 @@ router.post('/', (req, res) => {
 		if(secondRequest.callback_id === 'hunt_victim_mw'){
 			res.status(200).send(
 				{
-					"text": `_*${mwVictimTemp}*_${luckyMsg} \n${byeMsg} \n${emoji}`,
+					"text": `_*${mwVictim}*_${luckyMsg} \n${byeMsg} \n${emoji}`,
 					"attachments": [
 						anotherVictim.mw
 					]
