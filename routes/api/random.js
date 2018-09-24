@@ -42,6 +42,7 @@ router.post('/', (req, res) => {
 
 	if(requestType === 'mw'){
 		// if `mwVictim` is in `mwVictimSelected` then rerun function expression
+		console.log('mw hit');
 		for (let present of mwVictimSelected){
 			if (present === mwVictimTemp){
 				mwVictim();
