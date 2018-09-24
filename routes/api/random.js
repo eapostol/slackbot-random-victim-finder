@@ -10,6 +10,10 @@ const lucky = require('../../options/lucky');
 
 const sat = monWed.concat(tueThu); 
 
+const mwVictim = () => {
+	monWed[Math.floor(Math.random() * monWed.length)];
+}
+
 let mwVictimSelected = [];
 let tthVictimSelected = [];
 let satVictimSelected = [];
@@ -19,9 +23,7 @@ let satVictimSelected = [];
 // post request
 router.post('/', (req, res) => {
 	// const mwVictim = monWed[Math.floor(Math.random() * monWed.length)];
-	const mwVictim = function(){
-		monWed[Math.floor(Math.random() * monWed.length)];
-	}
+	
 	console.log('******* mwVictim.name', mwVictim());
 	const tthVictim = tueThu[Math.floor(Math.random() * tueThu.length)];
 	const satVictim = sat[Math.floor(Math.random() * sat.length)];
