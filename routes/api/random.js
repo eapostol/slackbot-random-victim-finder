@@ -60,14 +60,15 @@ router.post('/', (req, res) => {
 			}
 		}
 
-		res.status(200).send(
-			{
-				"text": `_*${mwVictim}*_${luckyMsg} \n${byeMsg} \n${emoji}`,
-				"attachments": [
-					anotherVictim.mw
-				]
-			}
-	)}
+		// res.status(200).send(
+		// 	{
+		// 		"text": `_*${mwVictim}*_${luckyMsg} \n${byeMsg} \n${emoji}`,
+		// 		"attachments": [
+		// 			anotherVictim.mw
+		// 		]
+		// 	}
+		// )
+	}
 	if(requestType === 'tth'){
 		res.status(200).send(
 			{
