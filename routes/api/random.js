@@ -69,8 +69,8 @@ router.post('/', (req, res) => {
 			console.log('mw hit - something in array');
 			for (let present of mwVictimSelected){
 				console.log('***** present 1', present);
-				if (present === mwVictimTemp){
-					mwVictim();
+				if (present === mwVictimSelected.filter(mwVictimTemp)){
+					break;
 					console.log('***** present 2', present);
 					console.log('***** mwVictimTemp', mwVictimTemp);
 				} else {
