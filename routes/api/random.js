@@ -11,7 +11,7 @@ const lucky = require('../../options/lucky');
 const sat = monWed.concat(tueThu); 
 
 let tempArr = [];
-let mwVictim = monWed[Math.floor(Math.random() * monWed.length)];
+// let mwVictim = monWed[Math.floor(Math.random() * monWed.length)];
 
 // post request
 router.post('/', (req, res) => {
@@ -21,6 +21,8 @@ router.post('/', (req, res) => {
 	const byeMsg = bye[Math.floor(Math.random() * bye.length)];
 	const luckyMsg = lucky[Math.floor(Math.random() * lucky.length)];
 	const emoji = emojis[Math.floor(Math.random() * emojis.length)];
+
+	let mwVictim = '';
 	
 	const requestType = req.body.text;
 	// console.log('**** 1', req)
@@ -109,9 +111,9 @@ router.post('/', (req, res) => {
 })
 
 function previouslySelected(){
+	mwVictim = monWed[Math.floor(Math.random() * monWed.length)];
 	if (tempArr.find(isPresent)){
 		console.log('was found', tempArr.find(isPresent));
-		mwVictim = monWed[Math.floor(Math.random() * monWed.length)];
 		return previouslySelected();
 	} else {
 		console.log('was not found');
