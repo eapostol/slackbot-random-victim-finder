@@ -61,7 +61,7 @@ router.post('/', (req, res) => {
 		// TODO: reset db with all names
 		return res.status(200).send(
 			{
-				"text": "Victim list has been reset! \n Enter `/victim mw`, `/victim tth`, or `/victim sat` to begin hunt. \n :thumbsup_all: "
+				"text": "Victim list has been reset! \n Enter `/victim mw`, `/victim tth`, or `/victim sat` to begin new hunt."
 			}
 	)}
 	// clicking button
