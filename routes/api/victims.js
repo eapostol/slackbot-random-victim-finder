@@ -2,6 +2,8 @@ const express = require('express');
 const randomNum = require("random-js")();
 const router = express.Router();
 const mongoose = require('mongoose');
+var rp = require('request-promise');
+
 
 const monWed = require('../../options/mwClass');
 const tueThu = require('../../options/tthClass');
@@ -21,7 +23,6 @@ router.post('/', (req, res) => {
 	
 
 	// fyi, I did previously use Math.floor(Math.random() * x) but some felt the randomnes wasn't so random
-	let mwVictim = '';
 	let tthVictim = tueThu[randomNum.integer(0, (tueThu.length)-1)];
 	let satVictim = sat[randomNum.integer(0, (sat.length)-1)];
 	let byeMsg = bye[randomNum.integer(0, (bye.length)-1)];
@@ -32,9 +33,11 @@ router.post('/', (req, res) => {
 	// console.log('**** 1', req)
 	// console.log('**** 2', req.body);
 	// console.log('**** 3', requestType);
-
+	
 	if(requestType === 'mw'){
 		// find the total number of victims in array
+		let mwVictim = '';
+		
 		Victim.aggregate([{ 
 			$project: {mwVictims: {$size: "$mwVictims"}}  // swap out class
 		}], (err, size) => {
@@ -52,22 +55,32 @@ router.post('/', (req, res) => {
 				// Tada! random user
 				console.log('****** victim', victim[0].mwVictims); 
 				mwVictim = victim[0].mwVictims
-				
-				
-
 			})
 		})
-		
-		
 
-		return res.status(200).send(
+		
+		return res.status(200).json(
 			{
 				"text": `_*${mwVictim}*_${luckyMsg} \n${byeMsg} \n${emoji}`,
 				"attachments": [
-					anotherVictim.mw
+						anotherVictim.mw
 				]
 			}
 		)
+		
+		// Victim.updateOne({},{ $pull: {mwVictims: mwVictim} }, (err, res) => {
+		// 	console.log('**** victim removed')
+		// })
+		
+		// return res.status(200).send(
+		// 	{
+		// 		"text": `_*${mwVictim}*_${luckyMsg} \n${byeMsg} \n${emoji}`,
+		// 		"attachments": [
+		// 				anotherVictim.mw
+		// 		]
+		// 	}
+		// )
+
 	}
 	if(requestType === 'tth'){
 		return res.status(200).send(
