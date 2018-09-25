@@ -13,6 +13,14 @@ const sat = monWed.concat(tueThu);
 let tempArr = [];
 // let mwVictim = monWed[Math.floor(Math.random() * monWed.length)];
 
+let mwVictim = '';
+
+	
+	mwVictimSelectOne();
+	
+	function mwVictimSelectOne () {
+		mwVictim = monWed[Math.floor(Math.random() * monWed.length)];
+	}
 
 // post request
 router.post('/', (req, res) => {
@@ -23,14 +31,7 @@ router.post('/', (req, res) => {
 	const luckyMsg = lucky[Math.floor(Math.random() * lucky.length)];
 	const emoji = emojis[Math.floor(Math.random() * emojis.length)];
 	
-	let mwVictim = '';
-
 	
-	mwVictimSelectOne();
-	
-	function mwVictimSelectOne () {
-		mwVictim = monWed[Math.floor(Math.random() * monWed.length)];
-	}
 	
 
 	const requestType = req.body.text;
