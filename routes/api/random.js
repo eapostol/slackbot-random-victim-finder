@@ -23,7 +23,7 @@ router.post('/', (req, res) => {
 	const emoji = emojis[Math.floor(Math.random() * emojis.length)];
 
 	let mwVictim = '';
-	
+
 	const requestType = req.body.text;
 	// console.log('**** 1', req)
 	// console.log('**** 2', req.body);
@@ -34,6 +34,8 @@ router.post('/', (req, res) => {
 		// run a function to select a name and compare it against others
 		previouslySelected();
 		console.log('***** tempArr', tempArr);
+		console.log('***** mwVictim outside', mwVictim);
+
 		return res.status(200).send(
 			{
 				"text": `_*${mwVictim}*_${luckyMsg} \n${byeMsg} \n${emoji}`,
@@ -117,7 +119,7 @@ function previouslySelected(){
 		return previouslySelected();
 	} else {
 		console.log('was not found');
-		tempArr.push(mwVictim);
+		return tempArr.push(mwVictim);
 	}
 
 	function isPresent(mwVictim){
