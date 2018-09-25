@@ -16,4 +16,4 @@ const VictimSchema = new Schema ({
 	}
 })
 
-module.exports = Victim = mongoose.model('victim', VictimSchema);  // creating a model called `victim` and adding in the `VictimSchema`
+module.exports = Victim = mongoose.model('victim', VictimSchema);  // creating a model/collection called `victim` and adding in the `VictimSchema`. mongo automatically appends 's' to this. 

@@ -1,6 +1,7 @@
 const express = require('express');
 const randomNum = require("random-js")();
 const router = express.Router();
+const mongoose = require('mongoose');
 
 const monWed = require('../../options/mwClass');
 const tueThu = require('../../options/tthClass');
@@ -17,9 +18,10 @@ const Victim = require('../../models/Victim');
 
 // post request
 router.post('/', (req, res) => {
+	
 
 	// fyi, I did previously use Math.floor(Math.random() * x) but some felt the randomnes wasn't so random
-	let mwVictim = monWed[randomNum.integer(0, (monWed.length)-1)];
+	let mwVictim = '';
 	let tthVictim = tueThu[randomNum.integer(0, (tueThu.length)-1)];
 	let satVictim = sat[randomNum.integer(0, (sat.length)-1)];
 	let byeMsg = bye[randomNum.integer(0, (bye.length)-1)];
@@ -32,6 +34,32 @@ router.post('/', (req, res) => {
 	// console.log('**** 3', requestType);
 
 	if(requestType === 'mw'){
+		// find the total number of victims in array
+		Victim.aggregate([{ 
+			$project: {mwVictims: {$size: "$mwVictims"}}  // swap out class
+		}], (err, size) => {
+			if (err) throw err;
+			console.log('***** size', size[0].mwVictims)  // swap out class
+			let number = size[0].mwVictims;
+			// retrieve a random number
+			let singleVictim = randomNum.integer(1, number);
+			console.log('***** singleVictim', singleVictim)
+			// select victim in array
+			Victim.aggregate([{
+				$project: {mwVictims: {$arrayElemAt: ["$mwVictims", singleVictim-1]}}
+			}]).exec((err, victim) => {
+				if (err) throw err;
+				// Tada! random user
+				console.log('****** victim', victim[0].mwVictims); 
+				mwVictim = victim[0].mwVictims
+				
+				
+
+			})
+		})
+		
+		
+
 		return res.status(200).send(
 			{
 				"text": `_*${mwVictim}*_${luckyMsg} \n${byeMsg} \n${emoji}`,
@@ -39,7 +67,8 @@ router.post('/', (req, res) => {
 					anotherVictim.mw
 				]
 			}
-	)}
+		)
+	}
 	if(requestType === 'tth'){
 		return res.status(200).send(
 			{
@@ -61,7 +90,22 @@ router.post('/', (req, res) => {
 		
 	)}
 	if(requestType === 'reset'){
-		// TODO: reset db with all names
+		// NOTE: mongoose   
+
+		// first, delete all db
+		mongoose.connection.dropCollection('victims', (err) => {
+			console.log('\'victims\' collection has been removed.')
+			if (err) throw err;
+		});
+		// second, reseed all db
+		Victim.create({
+			mwVictims: monWed,
+			tthVictims: tueThu,
+			satVictims: sat
+		}, (err) => {
+			if (err) throw err;
+		});
+
 		return res.status(200).send(
 			{
 				"text": "Victim list has been reset! \n Enter `/victim mw`, `/victim tth`, or `/victim sat` to begin new hunt."

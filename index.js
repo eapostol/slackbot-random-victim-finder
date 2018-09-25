@@ -22,8 +22,8 @@ mongoose
 	.catch(err => console.log(err));
 
 // use routes
-app.use('/api/random', random);
-// app.use('/api/random', victim);  // switch to this to test
+// app.use('/api/random', random);
+app.use('/api/random', victim);  // TODO: switch to this to test
 
 
 const port = process.env.PORT || 5000;
