@@ -15,6 +15,7 @@ let mwVictim = monWed[Math.floor(Math.random() * monWed.length)];
 
 // post request
 router.post('/', (req, res) => {
+	// let mwVictim = monWed[Math.floor(Math.random() * monWed.length)];
 	const tthVictim = tueThu[Math.floor(Math.random() * tueThu.length)];
 	const satVictim = sat[Math.floor(Math.random() * sat.length)];
 	const byeMsg = bye[Math.floor(Math.random() * bye.length)];
@@ -109,9 +110,11 @@ router.post('/', (req, res) => {
 
 function previouslySelected(){
 	if (tempArr.find(isPresent)){
+		console.log('was found');
 		mwVictim = monWed[Math.floor(Math.random() * monWed.length)];
 		return previouslySelected();
 	} else {
+		console.log('was not found');
 		return tempArr.push(mwVictim);
 	}
 
