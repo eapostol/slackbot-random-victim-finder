@@ -1,4 +1,5 @@
 const express = require('express');
+const randomNum = require("random-js")();
 const router = express.Router();
 
 const monWed = require('../../options/mwClass');
@@ -13,6 +14,8 @@ const sat = monWed.concat(tueThu);
 
 // post request
 router.post('/', (req, res) => {
+	let value = randomNum.integer(0, (monWed.length)-1);
+	console.log('******** value', value); 
 	let mwVictim = Math.floor(Math.random() * monWed.length);
 	let tthVictim = tueThu[Math.floor(Math.random() * tueThu.length)];
 	let satVictim = sat[Math.floor(Math.random() * sat.length)];
