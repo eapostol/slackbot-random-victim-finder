@@ -13,12 +13,12 @@ const sat = monWed.concat(tueThu);
 
 // post request
 router.post('/', (req, res) => {
-	const mwVictim = Math.floor(Math.random() * monWed.length);
-	const tthVictim = tueThu[Math.floor(Math.random() * tueThu.length)];
-	const satVictim = sat[Math.floor(Math.random() * sat.length)];
-	const byeMsg = bye[Math.floor(Math.random() * bye.length)];
-	const luckyMsg = lucky[Math.floor(Math.random() * lucky.length)];
-	const emoji = emojis[Math.floor(Math.random() * emojis.length)];
+	let mwVictim = Math.floor(Math.random() * monWed.length);
+	let tthVictim = tueThu[Math.floor(Math.random() * tueThu.length)];
+	let satVictim = sat[Math.floor(Math.random() * sat.length)];
+	let byeMsg = bye[Math.floor(Math.random() * bye.length)];
+	let luckyMsg = lucky[Math.floor(Math.random() * lucky.length)];
+	let emoji = emojis[Math.floor(Math.random() * emojis.length)];
 	
 	const requestType = req.body.text;
 	// console.log('**** 1', req)
