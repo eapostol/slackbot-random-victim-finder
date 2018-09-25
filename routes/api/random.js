@@ -15,12 +15,11 @@ let tempArr = [];
 
 let mwVictim = '';
 
-	
-	mwVictimSelectOne();
-	
-	function mwVictimSelectOne () {
-		mwVictim = monWed[Math.floor(Math.random() * monWed.length)];
-	}
+mwVictimSelectOne();
+
+function mwVictimSelectOne () {
+	mwVictim = monWed[Math.floor(Math.random() * monWed.length)];
+}
 
 // post request
 router.post('/', (req, res) => {
@@ -129,11 +128,13 @@ router.post('/', (req, res) => {
 function previouslySelected(){
 	if (mwVictim === tempArr.find(isPresent)){
 		console.log('was found', tempArr.find(isPresent));
+		mwVictim = '';
 		mwVictimSelectOne();
 		return previouslySelected();
 	} else {
 		console.log('was not found');
-		return tempArr.push(mwVictim);
+		tempArr.push(mwVictim);
+		return mwVictim = '';
 	}
 
 	function isPresent(mwVictim){
