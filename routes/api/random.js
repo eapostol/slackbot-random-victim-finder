@@ -57,6 +57,10 @@ router.post('/', (req, res) => {
 			}
 		
 	)}
+	if(requestType === 'reset'){
+		return res.status(200).send(
+			console.log('will reset list to include everyone')
+	)}
 	// clicking button
 	// if(req.body.callback_id === 'hunt_victim_mw'){
 	if(req.body.payload){
