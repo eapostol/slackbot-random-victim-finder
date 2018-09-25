@@ -35,6 +35,7 @@ router.post('/', (req, res) => {
 		previouslySelected();
 		console.log('***** tempArr', tempArr);
 		console.log('***** mwVictim outside', tempArr[tempArr.length-1]);
+		mwVictim = tempArr[tempArr.length-1];
 
 		return res.status(200).send(
 			{
