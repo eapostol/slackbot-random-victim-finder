@@ -14,9 +14,9 @@ const sat = monWed.concat(tueThu);
 
 // post request
 router.post('/', (req, res) => {
-	let value = randomNum.integer(0, (monWed.length)-1);
-	console.log('******** value', value); 
-	let mwVictim = Math.floor(Math.random() * monWed.length);
+	let mwVictim = randomNum.integer(0, (monWed.length)-1);
+	// console.log('******** value', value); 
+	// let mwVictim = Math.floor(Math.random() * monWed.length);
 	let tthVictim = tueThu[Math.floor(Math.random() * tueThu.length)];
 	let satVictim = sat[Math.floor(Math.random() * sat.length)];
 	let byeMsg = bye[Math.floor(Math.random() * bye.length)];
@@ -29,7 +29,7 @@ router.post('/', (req, res) => {
 	// console.log('**** 3', requestType);
 
 	if(requestType === 'mw'){
-		res.status(200).send(
+		return res.status(200).send(
 			{
 				"text": `_*${mwVictim}*_${luckyMsg} \n${byeMsg} \n${emoji}`,
 				"attachments": [
@@ -38,7 +38,7 @@ router.post('/', (req, res) => {
 			}
 	)}
 	if(requestType === 'tth'){
-		res.status(200).send(
+		return res.status(200).send(
 			{
 				"text": `_*${tthVictim}*_${luckyMsg} \n${byeMsg} \n${emoji}`,
 				"attachments": [
@@ -48,7 +48,7 @@ router.post('/', (req, res) => {
 		
 	)}
 	if(requestType === 'sat'){
-		res.status(200).send(
+		return res.status(200).send(
 			{
 				"text": `_*${satVictim}*_${luckyMsg} \n${byeMsg} \n${emoji}`,
 				"attachments": [
@@ -66,7 +66,7 @@ router.post('/', (req, res) => {
 		// console.log('**** 6', secondRequest.callback_id);
 
 		if(secondRequest.callback_id === 'hunt_victim_mw'){
-			res.status(200).send(
+			return res.status(200).send(
 				{
 					"text": `_*${mwVictim}*_${luckyMsg} \n${byeMsg} \n${emoji}`,
 					"attachments": [
@@ -75,7 +75,7 @@ router.post('/', (req, res) => {
 				}
 		)}
 		if(secondRequest.callback_id === 'hunt_victim_tth'){
-			res.status(200).send(
+			return res.status(200).send(
 				{
 					"text": `_*${tthVictim}*_${luckyMsg} \n${byeMsg} \n${emoji}`,
 					"attachments": [
@@ -84,7 +84,7 @@ router.post('/', (req, res) => {
 				}
 		)}
 		if(secondRequest.callback_id === 'hunt_victim_sat'){
-			res.status(200).send(
+			return res.status(200).send(
 				{
 					"text": `_*${satVictim}*_${luckyMsg} \n${byeMsg} \n${emoji}`,
 					"attachments": [
@@ -92,13 +92,13 @@ router.post('/', (req, res) => {
 					]
 				}
 		)} else {
-			res.status(200).send(
+			return res.status(200).send(
 			{
 				"text": `Zoinks! \nSomething doesn't look right. \nPlease try again. \n${emoji}`
 			}
 		)}
 	} else {
-		res.status(200).send(
+		return res.status(200).send(
 		{
 			"text": `Zoinks! \nSomething doesn't look right. \nPlease try again. \n${emoji}`
 		}
