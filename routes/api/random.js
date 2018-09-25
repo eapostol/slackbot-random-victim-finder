@@ -10,43 +10,55 @@ const lucky = require('../../options/lucky');
 
 const sat = monWed.concat(tueThu); 
 
-let tempArr = [];
-// let mwVictim = monWed[Math.floor(Math.random() * monWed.length)];
 
-let mwVictim = '';
+// `/api/random/test`
+router.get('/test', (req, res) =>
+	res.json({ msg: "this works"})
+);
 
-mwVictimSelectOne();
+router.get('/', (req, res) => {
+	res.send(
+		'Hello There'
+	);
+});
 
-function mwVictimSelectOne () {
-	mwVictim = monWed[Math.floor(Math.random() * monWed.length)];
-}
+router.get('/mw', (req, res) => {
+	res.send(
+		monWed[Math.floor(Math.random() * monWed.length)]
+	);
+});
+
+router.get('/tth', (req, res) => {
+	res.send(
+		tueThu[Math.floor(Math.random() * tueThu.length)]
+	);
+});
+
+router.get('/sat', (req, res) => {
+	res.send(
+		// console.log(sat.length)
+		// console.log(sat)
+		// console.log(sat[Math.floor(Math.random() * sat.length)])
+		sat[Math.floor(Math.random() * sat.length)]
+	);
+});
 
 // post request
 router.post('/', (req, res) => {
-	// let mwVictim = monWed[Math.floor(Math.random() * monWed.length)];
+	const mwVictim = monWed[Math.floor(Math.random() * monWed.length)];
 	const tthVictim = tueThu[Math.floor(Math.random() * tueThu.length)];
 	const satVictim = sat[Math.floor(Math.random() * sat.length)];
 	const byeMsg = bye[Math.floor(Math.random() * bye.length)];
 	const luckyMsg = lucky[Math.floor(Math.random() * lucky.length)];
 	const emoji = emojis[Math.floor(Math.random() * emojis.length)];
 	
-	
-	
-
 	const requestType = req.body.text;
 	// console.log('**** 1', req)
 	// console.log('**** 2', req.body);
 	// console.log('**** 3', requestType);
 
-	
 	if(requestType === 'mw'){
-		// run a function to select a name and compare it against others
-		previouslySelected();
-		console.log('***** tempArr', tempArr);
-		console.log('***** mwVictim outside', tempArr[tempArr.length-1]);
-		mwVictim = tempArr[tempArr.length-1];
-
-		return res.status(200).send(
+		res.status(200).send(
 			{
 				"text": `_*${mwVictim}*_${luckyMsg} \n${byeMsg} \n${emoji}`,
 				"attachments": [
@@ -55,7 +67,7 @@ router.post('/', (req, res) => {
 			}
 	)}
 	if(requestType === 'tth'){
-		return res.status(200).send(
+		res.status(200).send(
 			{
 				"text": `_*${tthVictim}*_${luckyMsg} \n${byeMsg} \n${emoji}`,
 				"attachments": [
@@ -65,7 +77,7 @@ router.post('/', (req, res) => {
 		
 	)}
 	if(requestType === 'sat'){
-		return res.status(200).send(
+		res.status(200).send(
 			{
 				"text": `_*${satVictim}*_${luckyMsg} \n${byeMsg} \n${emoji}`,
 				"attachments": [
@@ -83,10 +95,7 @@ router.post('/', (req, res) => {
 		// console.log('**** 6', secondRequest.callback_id);
 
 		if(secondRequest.callback_id === 'hunt_victim_mw'){
-			previouslySelected(); 
-			mwVictim = tempArr[tempArr.length-1];
-
-			return res.status(200).send(
+			res.status(200).send(
 				{
 					"text": `_*${mwVictim}*_${luckyMsg} \n${byeMsg} \n${emoji}`,
 					"attachments": [
@@ -95,7 +104,7 @@ router.post('/', (req, res) => {
 				}
 		)}
 		if(secondRequest.callback_id === 'hunt_victim_tth'){
-			return res.status(200).send(
+			res.status(200).send(
 				{
 					"text": `_*${tthVictim}*_${luckyMsg} \n${byeMsg} \n${emoji}`,
 					"attachments": [
@@ -104,7 +113,7 @@ router.post('/', (req, res) => {
 				}
 		)}
 		if(secondRequest.callback_id === 'hunt_victim_sat'){
-			return res.status(200).send(
+			res.status(200).send(
 				{
 					"text": `_*${satVictim}*_${luckyMsg} \n${byeMsg} \n${emoji}`,
 					"attachments": [
@@ -112,35 +121,17 @@ router.post('/', (req, res) => {
 					]
 				}
 		)} else {
-			return res.status(200).send(
+			res.status(200).send(
 			{
 				"text": `Zoinks! \nSomething doesn't look right. \nPlease try again. \n${emoji}`
 			}
 		)}
 	} else {
-		return res.status(200).send(
+		res.status(200).send(
 		{
 			"text": `Zoinks! \nSomething doesn't look right. \nPlease try again. \n${emoji}`
 		}
 	)}
 })
-
-function previouslySelected(){
-	if (mwVictim === tempArr.find(isPresent)){
-		console.log('was found', tempArr.find(isPresent));
-		mwVictim = '';
-		mwVictimSelectOne();
-		return previouslySelected();
-	} else {
-		console.log('was not found');
-		tempArr.push(mwVictim);
-		return mwVictim = '';
-	}
-
-	function isPresent(mwVictim){
-		console.log('***** mwVictim', mwVictim);
-		return mwVictim
-	}
-}
 
 module.exports = router;
