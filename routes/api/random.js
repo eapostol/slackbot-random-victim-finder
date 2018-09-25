@@ -14,7 +14,7 @@ const sat = monWed.concat(tueThu);
 
 // post request
 router.post('/', (req, res) => {
-	let mwVictim = randomNum.integer(0, 5);
+	let mwVictim = monWed[randomNum.integer(0, (monWed.length)-1)];
 	// console.log('******** value', value); 
 	// let mwVictim = Math.floor(Math.random() * monWed.length);
 	let tthVictim = tueThu[Math.floor(Math.random() * tueThu.length)];
