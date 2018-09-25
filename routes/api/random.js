@@ -14,14 +14,14 @@ const sat = monWed.concat(tueThu);
 
 // post request
 router.post('/', (req, res) => {
+
+	// fyi, I did previously use Math.floor(Math.random() * x) but some felt the randomnes wasn't so random
 	let mwVictim = monWed[randomNum.integer(0, (monWed.length)-1)];
-	// console.log('******** value', value); 
-	// let mwVictim = Math.floor(Math.random() * monWed.length);
-	let tthVictim = tueThu[Math.floor(Math.random() * tueThu.length)];
-	let satVictim = sat[Math.floor(Math.random() * sat.length)];
-	let byeMsg = bye[Math.floor(Math.random() * bye.length)];
-	let luckyMsg = lucky[Math.floor(Math.random() * lucky.length)];
-	let emoji = emojis[Math.floor(Math.random() * emojis.length)];
+	let tthVictim = tueThu[randomNum.integer(0, (tueThu.length)-1)];
+	let satVictim = sat[randomNum.integer(0, (sat.length)-1)];
+	let byeMsg = bye[randomNum.integer(0, (bye.length)-1)];
+	let luckyMsg = lucky[randomNum.integer(0, (lucky.length)-1)];
+	let emoji = emojis[randomNum.integer(0, (emojis.length)-1)];
 	
 	const requestType = req.body.text;
 	// console.log('**** 1', req)
