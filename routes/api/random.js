@@ -10,6 +10,7 @@ const lucky = require('../../options/lucky');
 
 const sat = monWed.concat(tueThu); 
 
+let tempArr = [];
 
 // post request
 router.post('/', (req, res) => {
@@ -26,8 +27,10 @@ router.post('/', (req, res) => {
 	// console.log('**** 3', requestType);
 
 	
-
 	if(requestType === 'mw'){
+		// run a function to select a name and compare it against others
+		previouslySelected();
+		console.log('***** tempArr', tempArr);
 		return res.status(200).send(
 			{
 				"text": `_*${mwVictim}*_${luckyMsg} \n${byeMsg} \n${emoji}`,
@@ -103,5 +106,18 @@ router.post('/', (req, res) => {
 		}
 	)}
 })
+
+function previouslySelected(){
+	if (tempArr.find(isPresent)){
+		mwVictim = monWed[Math.floor(Math.random() * monWed.length)];
+		return previouslySelected();
+	} else {
+		return tempArr.push(mwVictim);
+	}
+
+	function isPresent(){
+		return mwVictim
+	}
+}
 
 module.exports = router;
