@@ -24,7 +24,8 @@ router.post('/', (req, res) => {
 	const luckyMsg = lucky[Math.floor(Math.random() * lucky.length)];
 	const emoji = emojis[Math.floor(Math.random() * emojis.length)];
 
-	const mwVictimSelectOne = () => {
+
+	function mwVictimSelectOne () {
 		monWed[Math.floor(Math.random() * monWed.length)];
 	}
 
