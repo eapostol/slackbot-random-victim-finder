@@ -74,7 +74,7 @@ router.post('/', (req, res) => {
 		// console.log('**** 6', secondRequest.callback_id);
 
 		if(secondRequest.callback_id === 'hunt_victim_mw'){
-			previouslySelected();
+			previouslySelected(); 
 			mwVictim = tempArr[tempArr.length-1];
 
 			return res.status(200).send(
