@@ -22,7 +22,6 @@ router.post('/', (req, res) => {
 	const luckyMsg = lucky[Math.floor(Math.random() * lucky.length)];
 	const emoji = emojis[Math.floor(Math.random() * emojis.length)];
 
-	let mwVictim = '';
 	
 	const requestType = req.body.text;
 	// console.log('**** 1', req)
@@ -111,7 +110,7 @@ router.post('/', (req, res) => {
 })
 
 function previouslySelected(){
-	mwVictim = monWed[Math.floor(Math.random() * monWed.length)];
+	let mwVictim = monWed[Math.floor(Math.random() * monWed.length)];
 	if (tempArr.find(isPresent)){
 		console.log('was found', tempArr.find(isPresent));
 		return previouslySelected();
@@ -120,7 +119,8 @@ function previouslySelected(){
 		return tempArr.push(mwVictim);
 	}
 
-	function isPresent(){
+	function isPresent(mwVictim){
+		console.log('***** mwVictim', mwVictim);
 		return mwVictim
 	}
 }
