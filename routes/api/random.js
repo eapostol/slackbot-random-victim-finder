@@ -22,6 +22,7 @@ router.post('/', (req, res) => {
 	const luckyMsg = lucky[Math.floor(Math.random() * lucky.length)];
 	const emoji = emojis[Math.floor(Math.random() * emojis.length)];
 
+	let mwVictim = '';
 	
 	const requestType = req.body.text;
 	// console.log('**** 1', req)
@@ -110,7 +111,7 @@ router.post('/', (req, res) => {
 })
 
 function previouslySelected(){
-	let mwVictim = monWed[Math.floor(Math.random() * monWed.length)];
+	mwVictim = monWed[Math.floor(Math.random() * monWed.length)];
 	if (mwVictim === tempArr.find(isPresent)){
 		console.log('was found', tempArr.find(isPresent));
 		return previouslySelected();
