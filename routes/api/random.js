@@ -11,38 +11,6 @@ const lucky = require('../../options/lucky');
 const sat = monWed.concat(tueThu); 
 
 
-// `/api/random/test`
-router.get('/test', (req, res) =>
-	res.json({ msg: "this works"})
-);
-
-router.get('/', (req, res) => {
-	res.send(
-		'Hello There'
-	);
-});
-
-router.get('/mw', (req, res) => {
-	res.send(
-		monWed[Math.floor(Math.random() * monWed.length)]
-	);
-});
-
-router.get('/tth', (req, res) => {
-	res.send(
-		tueThu[Math.floor(Math.random() * tueThu.length)]
-	);
-});
-
-router.get('/sat', (req, res) => {
-	res.send(
-		// console.log(sat.length)
-		// console.log(sat)
-		// console.log(sat[Math.floor(Math.random() * sat.length)])
-		sat[Math.floor(Math.random() * sat.length)]
-	);
-});
-
 // post request
 router.post('/', (req, res) => {
 	const mwVictim = monWed[Math.floor(Math.random() * monWed.length)];
@@ -56,6 +24,8 @@ router.post('/', (req, res) => {
 	// console.log('**** 1', req)
 	// console.log('**** 2', req.body);
 	// console.log('**** 3', requestType);
+
+	
 
 	if(requestType === 'mw'){
 		return res.status(200).send(
