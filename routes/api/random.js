@@ -14,7 +14,7 @@ let tempArr = [];
 
 // post request
 router.post('/', (req, res) => {
-	const mwVictim = monWed[Math.floor(Math.random() * monWed.length)];
+	let mwVictim = monWed[Math.floor(Math.random() * monWed.length)];
 	const tthVictim = tueThu[Math.floor(Math.random() * tueThu.length)];
 	const satVictim = sat[Math.floor(Math.random() * sat.length)];
 	const byeMsg = bye[Math.floor(Math.random() * bye.length)];
