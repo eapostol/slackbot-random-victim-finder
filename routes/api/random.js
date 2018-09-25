@@ -22,15 +22,15 @@ router.post('/', (req, res) => {
 	const byeMsg = bye[Math.floor(Math.random() * bye.length)];
 	const luckyMsg = lucky[Math.floor(Math.random() * lucky.length)];
 	const emoji = emojis[Math.floor(Math.random() * emojis.length)];
+	const mwVictim = '';
 
+	
 	mwVictimSelectOne();
-
-
+	
 	function mwVictimSelectOne () {
-		monWed[Math.floor(Math.random() * monWed.length)];
+		mwVictim = monWed[Math.floor(Math.random() * monWed.length)];
 	}
-
-	const mwVictim = mwVictimSelectOne;
+	
 
 	const requestType = req.body.text;
 	// console.log('**** 1', req)
