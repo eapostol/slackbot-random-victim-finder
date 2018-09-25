@@ -13,7 +13,6 @@ const sat = monWed.concat(tueThu);
 let tempArr = [];
 // let mwVictim = monWed[Math.floor(Math.random() * monWed.length)];
 
-mwVictimSelectOne();
 
 // post request
 router.post('/', (req, res) => {
@@ -23,6 +22,8 @@ router.post('/', (req, res) => {
 	const byeMsg = bye[Math.floor(Math.random() * bye.length)];
 	const luckyMsg = lucky[Math.floor(Math.random() * lucky.length)];
 	const emoji = emojis[Math.floor(Math.random() * emojis.length)];
+
+	mwVictimSelectOne();
 
 
 	function mwVictimSelectOne () {
