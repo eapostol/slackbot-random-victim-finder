@@ -111,7 +111,7 @@ router.post('/', (req, res) => {
 
 function previouslySelected(){
 	let mwVictim = monWed[Math.floor(Math.random() * monWed.length)];
-	if (tempArr.find(isPresent)){
+	if (mwVictim === tempArr.find(isPresent)){
 		console.log('was found', tempArr.find(isPresent));
 		return previouslySelected();
 	} else {
