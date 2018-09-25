@@ -117,14 +117,6 @@ function previouslySelected(){
 	} else {
 		console.log('was not found');
 		tempArr.push(mwVictim);
-		return res.status(200).send(
-			{
-				"text": `_*${mwVictim}*_${luckyMsg} \n${byeMsg} \n${emoji}`,
-				"attachments": [
-					anotherVictim.mw
-				]
-			}
-	)
 	}
 
 	function isPresent(mwVictim){
