@@ -13,6 +13,8 @@ const sat = monWed.concat(tueThu);
 let tempArr = [];
 // let mwVictim = monWed[Math.floor(Math.random() * monWed.length)];
 
+mwVictimSelectOne();
+
 // post request
 router.post('/', (req, res) => {
 	// let mwVictim = monWed[Math.floor(Math.random() * monWed.length)];
