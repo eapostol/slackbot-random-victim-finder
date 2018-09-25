@@ -34,7 +34,7 @@ router.post('/', (req, res) => {
 		// run a function to select a name and compare it against others
 		previouslySelected();
 		console.log('***** tempArr', tempArr);
-		console.log('***** mwVictim outside', mwVictim);
+		console.log('***** mwVictim outside', tempArr[tempArr.length-1]);
 
 		return res.status(200).send(
 			{
