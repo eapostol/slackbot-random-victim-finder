@@ -3,7 +3,7 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 
 const random = require('./routes/api/random');
-const victim = require('./routes/api/victims');
+const victims = require('./routes/api/victims');
 
 const app = express();
 
@@ -23,7 +23,7 @@ mongoose
 
 // use routes
 // app.use('/api/random', random);
-app.use('/api/random', victim);  // TODO: switch to this to test
+app.use('/api/victims', victims);  // TODO: switch to this to test
 
 
 const port = process.env.PORT || 5000;
