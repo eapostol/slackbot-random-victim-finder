@@ -26,6 +26,6 @@ module.exports = [
 	"Timothy Kim",
 	"Tristan Perera",
 	"Vu Duong",
-	"xiao chen",
+	"Xiao Chen",
 	"Xin Xing (Ryan) Gao"
 ];
