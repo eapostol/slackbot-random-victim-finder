@@ -34,43 +34,73 @@ router.post('/', (req, res) => {
 	// console.log('**** 2', req.body);
 	// console.log('**** 3', requestType);
 	
+	
 	if(requestType === 'mw'){
-		// find the total number of victims in array
-		let mwVictim = '';
 		
-		Victim.aggregate([{ 
-			$project: {mwVictims: {$size: "$mwVictims"}}  // swap out class
-		}], (err, size) => {
-			if (err) throw err;
-			console.log('***** size', size[0].mwVictims)  // swap out class
-			let number = size[0].mwVictims;
-			// retrieve a random number
-			let singleVictim = randomNum.integer(1, number);
-			console.log('***** singleVictim', singleVictim)
-			// select victim in array
-			Victim.aggregate([{
-				$project: {mwVictims: {$arrayElemAt: ["$mwVictims", singleVictim-1]}}
-			}]).exec((err, victim) => {
+		let mwVictim = '';
+
+		// res.status(200).send(
+		// 	{
+		// 		"text": `_*${mwVictim}*_${luckyMsg} \n${byeMsg} \n${emoji}`,
+		// 		"attachments": [
+		// 				anotherVictim.mw
+		// 		]
+		// 	}
+		// )
+
+		let promiseSetup = new Promise((resolve, reject) => {
+			// find the total number of victims in array
+			Victim.aggregate([{ 
+				$project: {mwVictims: {$size: "$mwVictims"}}  // swap out class
+			}], (err, size) => {
 				if (err) throw err;
-				// Tada! random user
-				console.log('****** victim', victim[0].mwVictims); 
-				mwVictim = victim[0].mwVictims
+				console.log('***** size', size[0].mwVictims)  // swap out class
+				let number = size[0].mwVictims;
+				// retrieve a random number
+				let singleVictim = randomNum.integer(1, number);
+				console.log('***** singleVictim', singleVictim)
+
+				// select victim in array
+				Victim.aggregate([{
+					$project: {mwVictims: {$arrayElemAt: ["$mwVictims", singleVictim-1]}}
+				}]).exec((err, victim) => {
+					// tada! random user
+					mwVictim = victim[0].mwVictims
+					console.log('***** victim 1', mwVictim); 
+
+					Victim.updateOne({},{ $pull: {mwVictims: mwVictim} }, (err, res) => {
+						console.log(`***** ${mwVictim} removed`)
+					})
+
+					resolve();
+					if (err)  {
+						reject();
+					};
+				})
 			})
+		});
+
+		promiseSetup.then(() => {
+			console.log('***** victim 2', mwVictim); 
+			
+			return res.status(200).send(
+				{
+					"text": `_*${mwVictim}*_${luckyMsg} \n${byeMsg} \n${emoji}`,
+					"attachments": [
+							anotherVictim.mw
+					]
+				}
+			)
+
+			
+			
 		})
+		.catch(err => console.log(err));
+		
+
 
 		
-		return res.status(200).json(
-			{
-				"text": `_*${mwVictim}*_${luckyMsg} \n${byeMsg} \n${emoji}`,
-				"attachments": [
-						anotherVictim.mw
-				]
-			}
-		)
 		
-		// Victim.updateOne({},{ $pull: {mwVictims: mwVictim} }, (err, res) => {
-		// 	console.log('**** victim removed')
-		// })
 		
 		// return res.status(200).send(
 		// 	{
@@ -80,7 +110,7 @@ router.post('/', (req, res) => {
 		// 		]
 		// 	}
 		// )
-
+		return;
 	}
 	if(requestType === 'tth'){
 		return res.status(200).send(
@@ -90,7 +120,6 @@ router.post('/', (req, res) => {
 					anotherVictim.tth
 				]
 			}
-		
 	)}
 	if(requestType === 'sat'){
 		return res.status(200).send(
