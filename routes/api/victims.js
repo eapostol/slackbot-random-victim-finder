@@ -2,8 +2,6 @@ const express = require('express');
 const randomNum = require("random-js")();
 const router = express.Router();
 const mongoose = require('mongoose');
-var rp = require('request-promise');
-
 
 const monWed = require('../../options/mwClass');
 const tueThu = require('../../options/tthClass');
@@ -39,37 +37,30 @@ router.post('/', (req, res) => {
 		
 		let mwVictim = '';
 
-		// res.status(200).send(
-		// 	{
-		// 		"text": `_*${mwVictim}*_${luckyMsg} \n${byeMsg} \n${emoji}`,
-		// 		"attachments": [
-		// 				anotherVictim.mw
-		// 		]
-		// 	}
-		// )
-
 		let promiseSetup = new Promise((resolve, reject) => {
+			
 			// find the total number of victims in array
 			Victim.aggregate([{ 
 				$project: {mwVictims: {$size: "$mwVictims"}}  // swap out class
 			}], (err, size) => {
 				if (err) throw err;
 				console.log('***** size', size[0].mwVictims)  // swap out class
-				let number = size[0].mwVictims;
+				let number = size[0].mwVictims;  // swap out class
 				// retrieve a random number
 				let singleVictim = randomNum.integer(1, number);
 				console.log('***** singleVictim', singleVictim)
 
 				// select victim in array
 				Victim.aggregate([{
-					$project: {mwVictims: {$arrayElemAt: ["$mwVictims", singleVictim-1]}}
+					$project: {mwVictims: {$arrayElemAt: ["$mwVictims", singleVictim-1]}}  // swap out class
 				}]).exec((err, victim) => {
 					// tada! random user
-					mwVictim = victim[0].mwVictims
-					console.log('***** victim 1', mwVictim); 
+					mwVictim = victim[0].mwVictims  // swap out class
+					console.log('***** victim 1', mwVictim);  // swap out class
 
-					Victim.updateOne({},{ $pull: {mwVictims: mwVictim} }, (err, res) => {
-						console.log(`***** ${mwVictim} removed`)
+					// delete victim in array
+					Victim.updateOne({},{ $pull: {mwVictims: mwVictim} }, (err, res) => {  // swap out class
+						console.log(`***** ${mwVictim} removed`)  // swap out class
 					})
 
 					resolve();
@@ -81,35 +72,19 @@ router.post('/', (req, res) => {
 		});
 
 		promiseSetup.then(() => {
-			console.log('***** victim 2', mwVictim); 
+			console.log('***** victim 2', mwVictim);  // swap out class
 			
 			return res.status(200).send(
 				{
-					"text": `_*${mwVictim}*_${luckyMsg} \n${byeMsg} \n${emoji}`,
+					"text": `_*${mwVictim}*_${luckyMsg} \n${byeMsg} \n${emoji}`,  // swap out class
 					"attachments": [
-							anotherVictim.mw
+							anotherVictim.mw  // swap out class
 					]
 				}
 			)
-
-			
-			
 		})
 		.catch(err => console.log(err));
 		
-
-
-		
-		
-		
-		// return res.status(200).send(
-		// 	{
-		// 		"text": `_*${mwVictim}*_${luckyMsg} \n${byeMsg} \n${emoji}`,
-		// 		"attachments": [
-		// 				anotherVictim.mw
-		// 		]
-		// 	}
-		// )
 		return;
 	}
 	if(requestType === 'tth'){
