@@ -43,8 +43,18 @@ router.post('/', (req, res) => {
 				$project: {mwVictims: {$size: "$mwVictims"}}  // swap out class
 			}], (err, size) => {
 				if (err) throw err;
-				console.log('***** size', size[0].mwVictims)  // swap out class
+				let arrSize = size[0].mwVictims;
+				console.log('***** size', arrSize)  // swap out class
 				let number = size[0].mwVictims;  // swap out class
+
+				if(arrSize === 0){
+					return res.status(200).send(
+						{
+							"text": 'Uh oh, no more victims. :cry: \n To get more victims enter `/victim reset`.'
+						}
+					)
+				} 
+
 				// retrieve a random number
 				let singleVictim = randomNum.integer(1, number);
 				console.log('***** singleVictim', singleVictim)
@@ -147,8 +157,17 @@ router.post('/', (req, res) => {
 					$project: {mwVictims: {$size: "$mwVictims"}}  // swap out class
 				}], (err, size) => {
 					if (err) throw err;
-					console.log('***** size', size[0].mwVictims)  // swap out class
+					let arrSize = size[0].mwVictims;
+					console.log('***** size', arrSize)  // swap out class
 					let number = size[0].mwVictims;  // swap out class
+
+					if(arrSize === 0){
+						return res.status(200).send(
+							{
+								"text": 'Uh oh, no more victims. :cry: \n To get more victims enter `/victim reset`.'
+							}
+						)
+					} 
 					// retrieve a random number
 					let singleVictim = randomNum.integer(1, number);
 					console.log('***** singleVictim', singleVictim)
