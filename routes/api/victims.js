@@ -260,10 +260,130 @@ router.post('/', (req, res) => {
 			return;
 		}
 		if(secondRequest.callback_id === 'hunt_victim_tth'){
-			tthClass();
+			let tthVictim = '';  // swap out class
+
+			let promiseSetup = new Promise((resolve, reject) => {
+				
+				// find the total number of victims in array
+				Victim.aggregate([{ 
+					$project: {tthVictims: {$size: "$tthVictims"}}  // swap out class
+				}], (err, size) => {
+					if (err) throw err;
+					let arrSize = size[0].tthVictims;  // swap out class
+					console.log('***** size', arrSize)  
+					let number = size[0].tthVictims;  // swap out class
+
+					if(arrSize === 0){
+						return res.status(200).send(
+							{
+								"text": 'Uh oh, no more victims. :cry: \n To get more, enter `/victim reset`.'
+							}
+						)
+					} 
+
+					// retrieve a random number
+					let singleVictim = randomNum.integer(1, number);
+					console.log('***** singleVictim', singleVictim)
+
+					// select victim in array
+					Victim.aggregate([{
+						$project: {tthVictims: {$arrayElemAt: ["$tthVictims", singleVictim-1]}}  // swap out class
+					}]).exec((err, victim) => {
+						// tada! random user
+						tthVictim = victim[0].tthVictims  // swap out class
+						console.log('***** victim 1', tthVictim);  // swap out class
+
+						// delete victim in array
+						Victim.updateOne({},{ $pull: {tthVictims: tthVictim} }, (err, res) => {  // swap out class
+							console.log(`***** ${tthVictim} removed`)  // swap out class
+						})
+
+						resolve();
+						if (err)  {
+							reject();
+						};
+					})
+				})
+			});
+
+			promiseSetup.then(() => {
+				console.log('***** victim 2', tthVictim);  // swap out class
+				
+				return res.status(200).send(
+					{
+						"text": `_*${tthVictim}*_${luckyMsg} \n${byeMsg} \n${emoji}`,  // swap out class
+						"attachments": [
+							anotherVictim.tth  // swap out class
+						]
+					}
+				)
+			})
+			.catch(err => console.log(err));
+			
+			return;
 		}
 		if(secondRequest.callback_id === 'hunt_victim_sat'){
-			satClass();
+			let satVictim = '';  // swap out class
+
+			let promiseSetup = new Promise((resolve, reject) => {
+				
+				// find the total number of victims in array
+				Victim.aggregate([{ 
+					$project: {satVictims: {$size: "$satVictims"}}  // swap out class
+				}], (err, size) => {
+					if (err) throw err;
+					let arrSize = size[0].satVictims;  // swap out class
+					console.log('***** size', arrSize)  
+					let number = size[0].satVictims;  // swap out class
+
+					if(arrSize === 0){
+						return res.status(200).send(
+							{
+								"text": 'Uh oh, no more victims. :cry: \n To get more, enter `/victim reset`.'
+							}
+						)
+					} 
+
+					// retrieve a random number
+					let singleVictim = randomNum.integer(1, number);
+					console.log('***** singleVictim', singleVictim)
+
+					// select victim in array
+					Victim.aggregate([{
+						$project: {satVictims: {$arrayElemAt: ["$satVictims", singleVictim-1]}}  // swap out class
+					}]).exec((err, victim) => {
+						// tada! random user
+						satVictim = victim[0].satVictims  // swap out class
+						console.log('***** victim 1', satVictim);  // swap out class
+
+						// delete victim in array
+						Victim.updateOne({},{ $pull: {satVictims: satVictim} }, (err, res) => {  // swap out class
+							console.log(`***** ${satVictim} removed`)  // swap out class
+						})
+
+						resolve();
+						if (err)  {
+							reject();
+						};
+					})
+				})
+			});
+
+			promiseSetup.then(() => {
+				console.log('***** victim 2', satVictim);  // swap out class
+				
+				return res.status(200).send(
+					{
+						"text": `_*${satVictim}*_${luckyMsg} \n${byeMsg} \n${emoji}`,  // swap out class
+						"attachments": [
+							anotherVictim.sat  // swap out class
+						]
+					}
+				)
+			})
+			.catch(err => console.log(err));
+			
+			return;
 		} else {
 			return res.status(200).send(
 				{
@@ -347,133 +467,8 @@ router.post('/', (req, res) => {
 // 	return;
 // }
 
-function tthClass(){
-	let tthVictim = '';  // swap out class
 
-	let promiseSetup = new Promise((resolve, reject) => {
-		
-		// find the total number of victims in array
-		Victim.aggregate([{ 
-			$project: {tthVictims: {$size: "$tthVictims"}}  // swap out class
-		}], (err, size) => {
-			if (err) throw err;
-			let arrSize = size[0].tthVictims;  // swap out class
-			console.log('***** size', arrSize)  
-			let number = size[0].tthVictims;  // swap out class
 
-			if(arrSize === 0){
-				return res.status(200).send(
-					{
-						"text": 'Uh oh, no more victims. :cry: \n To get more, enter `/victim reset`.'
-					}
-				)
-			} 
-
-			// retrieve a random number
-			let singleVictim = randomNum.integer(1, number);
-			console.log('***** singleVictim', singleVictim)
-
-			// select victim in array
-			Victim.aggregate([{
-				$project: {tthVictims: {$arrayElemAt: ["$tthVictims", singleVictim-1]}}  // swap out class
-			}]).exec((err, victim) => {
-				// tada! random user
-				tthVictim = victim[0].tthVictims  // swap out class
-				console.log('***** victim 1', tthVictim);  // swap out class
-
-				// delete victim in array
-				Victim.updateOne({},{ $pull: {tthVictims: tthVictim} }, (err, res) => {  // swap out class
-					console.log(`***** ${tthVictim} removed`)  // swap out class
-				})
-
-				resolve();
-				if (err)  {
-					reject();
-				};
-			})
-		})
-	});
-
-	promiseSetup.then(() => {
-		console.log('***** victim 2', tthVictim);  // swap out class
-		
-		return res.status(200).send(
-			{
-				"text": `_*${tthVictim}*_${luckyMsg} \n${byeMsg} \n${emoji}`,  // swap out class
-				"attachments": [
-					anotherVictim.tth  // swap out class
-				]
-			}
-		)
-	})
-	.catch(err => console.log(err));
-	
-	return;
-}
-
-function satClass(){
-	let satVictim = '';  // swap out class
-
-	let promiseSetup = new Promise((resolve, reject) => {
-		
-		// find the total number of victims in array
-		Victim.aggregate([{ 
-			$project: {satVictims: {$size: "$satVictims"}}  // swap out class
-		}], (err, size) => {
-			if (err) throw err;
-			let arrSize = size[0].satVictims;  // swap out class
-			console.log('***** size', arrSize)  
-			let number = size[0].satVictims;  // swap out class
-
-			if(arrSize === 0){
-				return res.status(200).send(
-					{
-						"text": 'Uh oh, no more victims. :cry: \n To get more, enter `/victim reset`.'
-					}
-				)
-			} 
-
-			// retrieve a random number
-			let singleVictim = randomNum.integer(1, number);
-			console.log('***** singleVictim', singleVictim)
-
-			// select victim in array
-			Victim.aggregate([{
-				$project: {satVictims: {$arrayElemAt: ["$satVictims", singleVictim-1]}}  // swap out class
-			}]).exec((err, victim) => {
-				// tada! random user
-				satVictim = victim[0].satVictims  // swap out class
-				console.log('***** victim 1', satVictim);  // swap out class
-
-				// delete victim in array
-				Victim.updateOne({},{ $pull: {satVictims: satVictim} }, (err, res) => {  // swap out class
-					console.log(`***** ${satVictim} removed`)  // swap out class
-				})
-
-				resolve();
-				if (err)  {
-					reject();
-				};
-			})
-		})
-	});
-
-	promiseSetup.then(() => {
-		console.log('***** victim 2', satVictim);  // swap out class
-		
-		return res.status(200).send(
-			{
-				"text": `_*${satVictim}*_${luckyMsg} \n${byeMsg} \n${emoji}`,  // swap out class
-				"attachments": [
-					anotherVictim.sat  // swap out class
-				]
-			}
-		)
-	})
-	.catch(err => console.log(err));
-	
-	return;
-}
 
 // function pageLoadError(){
 // 	return res.status(200).send(
