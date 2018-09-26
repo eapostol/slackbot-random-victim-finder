@@ -1,6 +1,6 @@
 # README &middot; [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](#license)  
 
-This application was created to randomly select a student in class using a custom Slack slash command followed with the day of class. Options are `/victim mw`, `/victim tth` and `/victim sat`.   
+This application was created to randomly select a student in class using a custom Slack slash command followed with the day of class. Options are `/victim mw`, `/victim tth`, `/victim sat`, and `/victim reset`.   
 
 ## Table of Contents
 
@@ -16,7 +16,7 @@ To run locally download to your local machine and run the following commands:
 $ npm install
 $ nodemon index.js
 ```
-Set up within Slack is still required (i.e. slash command & interactive message).
+Set up within Slack is still required (i.e. slash command, interactive message, db).
 
 Note to self: command to view the log within Heroku is `heroku logs --source app`
 
@@ -30,6 +30,7 @@ Languages, libraries, applications and packages used:
 - [Node.js](https://nodejs.org/)
 - [Express.js](https://expressjs.com/)
 - [Heroku](https://www.heroku.com/)
+- [MongoDB (mLab)](https://mlab.com/)
 
 ## License
 
