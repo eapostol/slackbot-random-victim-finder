@@ -32,7 +32,6 @@ router.post('/', (req, res) => {
 	// console.log('**** 2', req.body);
 	// console.log('**** 3', requestType);
 	
-	
 	if(requestType === 'mw'){
 		
 		let mwVictim = '';
@@ -107,8 +106,6 @@ router.post('/', (req, res) => {
 		
 	)}
 	if(requestType === 'reset'){
-		// NOTE: mongoose   
-
 		// first, delete all db
 		mongoose.connection.dropCollection('victims', (err) => {
 			console.log('\'victims\' collection has been removed.')
@@ -128,7 +125,7 @@ router.post('/', (req, res) => {
 				"text": "Victim list has been reset! \n Enter `/victim mw`, `/victim tth`, or `/victim sat` to begin new hunt."
 			}
 	)}
-	// clicking button
+	// NOTE: clicking button
 	// if(req.body.callback_id === 'hunt_victim_mw'){
 	if(req.body.payload){
 		const secondRequest = JSON.parse(req.body.payload);
@@ -137,14 +134,77 @@ router.post('/', (req, res) => {
 		// console.log('**** 6', secondRequest.callback_id);
 
 		if(secondRequest.callback_id === 'hunt_victim_mw'){
-			return res.status(200).send(
-				{
-					"text": `_*${mwVictim}*_${luckyMsg} \n${byeMsg} \n${emoji}`,
-					"attachments": [
-						anotherVictim.mw
-					]
-				}
-		)}
+			
+
+
+
+			let mwVictim = '';
+
+			let promiseSetup = new Promise((resolve, reject) => {
+				
+				// find the total number of victims in array
+				Victim.aggregate([{ 
+					$project: {mwVictims: {$size: "$mwVictims"}}  // swap out class
+				}], (err, size) => {
+					if (err) throw err;
+					console.log('***** size', size[0].mwVictims)  // swap out class
+					let number = size[0].mwVictims;  // swap out class
+					// retrieve a random number
+					let singleVictim = randomNum.integer(1, number);
+					console.log('***** singleVictim', singleVictim)
+
+					// select victim in array
+					Victim.aggregate([{
+						$project: {mwVictims: {$arrayElemAt: ["$mwVictims", singleVictim-1]}}  // swap out class
+					}]).exec((err, victim) => {
+						// tada! random user
+						mwVictim = victim[0].mwVictims  // swap out class
+						console.log('***** victim 1', mwVictim);  // swap out class
+
+						// delete victim in array
+						Victim.updateOne({},{ $pull: {mwVictims: mwVictim} }, (err, res) => {  // swap out class
+							console.log(`***** ${mwVictim} removed`)  // swap out class
+						})
+
+						resolve();
+						if (err)  {
+							reject();
+						};
+					})
+				})
+			});
+
+			promiseSetup.then(() => {
+				console.log('***** victim 2', mwVictim);  // swap out class
+				
+				return res.status(200).send(
+					{
+						"text": `_*${mwVictim}*_${luckyMsg} \n${byeMsg} \n${emoji}`,  // swap out class
+						"attachments": [
+								anotherVictim.mw  // swap out class
+						]
+					}
+				)
+			})
+			.catch(err => console.log(err));
+			
+			return;
+
+
+
+			// return res.status(200).send(
+			// 	{
+			// 		"text": `_*${mwVictim}*_${luckyMsg} \n${byeMsg} \n${emoji}`,
+			// 		"attachments": [
+			// 			anotherVictim.mw
+			// 		]
+			// 	}
+			// )
+
+
+
+		
+		}
 		if(secondRequest.callback_id === 'hunt_victim_tth'){
 			return res.status(200).send(
 				{
