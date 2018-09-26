@@ -40,7 +40,7 @@ router.post('/', (req, res) => {
 			}], (err, size) => {
 				if (err) throw err;
 				let arrSize = size[0].mwVictims;  // swap out class
-				console.log('***** size', arrSize)  
+				console.log('***** victim pool size', arrSize)  
 				let number = size[0].mwVictims;  // swap out class
 
 				if(arrSize === 0){
@@ -53,7 +53,7 @@ router.post('/', (req, res) => {
 
 				// retrieve a random number
 				let singleVictim = randomNum.integer(1, number);
-				console.log('***** singleVictim', singleVictim)
+				console.log('***** random single victim', singleVictim)
 
 				// select victim in array
 				Victim.aggregate([{
@@ -61,7 +61,7 @@ router.post('/', (req, res) => {
 				}]).exec((err, victim) => {
 					// tada! random user
 					mwVictim = victim[0].mwVictims  // swap out class
-					console.log('***** victim 1', mwVictim);  // swap out class
+					console.log('***** victim before promise', mwVictim);  // swap out class
 
 					// delete victim in array
 					Victim.updateOne({},{ $pull: {mwVictims: mwVictim} }, (err, res) => {  // swap out class
@@ -77,7 +77,7 @@ router.post('/', (req, res) => {
 		});
 
 		promiseSetup.then(() => {
-			console.log('***** victim 2', mwVictim);  // swap out class
+			console.log('***** victim after promise', mwVictim);  // swap out class
 			
 			return res.status(200).send(
 				{
@@ -104,7 +104,7 @@ router.post('/', (req, res) => {
 			}], (err, size) => {
 				if (err) throw err;
 				let arrSize = size[0].tthVictims;  // swap out class
-				console.log('***** size', arrSize)  
+				console.log('***** victim pool size', arrSize)  
 				let number = size[0].tthVictims;  // swap out class
 
 				if(arrSize === 0){
@@ -117,7 +117,7 @@ router.post('/', (req, res) => {
 
 				// retrieve a random number
 				let singleVictim = randomNum.integer(1, number);
-				console.log('***** singleVictim', singleVictim)
+				console.log('***** random single victim', singleVictim)
 
 				// select victim in array
 				Victim.aggregate([{
@@ -125,7 +125,7 @@ router.post('/', (req, res) => {
 				}]).exec((err, victim) => {
 					// tada! random user
 					tthVictim = victim[0].tthVictims  // swap out class
-					console.log('***** victim 1', tthVictim);  // swap out class
+					console.log('***** victim before promise', tthVictim);  // swap out class
 
 					// delete victim in array
 					Victim.updateOne({},{ $pull: {tthVictims: tthVictim} }, (err, res) => {  // swap out class
@@ -141,7 +141,7 @@ router.post('/', (req, res) => {
 		});
 
 		promiseSetup.then(() => {
-			console.log('***** victim 2', tthVictim);  // swap out class
+			console.log('***** victim after promise', tthVictim);  // swap out class
 			
 			return res.status(200).send(
 				{
@@ -206,7 +206,7 @@ router.post('/', (req, res) => {
 				}], (err, size) => {
 					if (err) throw err;
 					let arrSize = size[0].mwVictims;  // swap out class
-					console.log('***** size', arrSize)  
+					console.log('***** victim pool size', arrSize)  
 					let number = size[0].mwVictims;  // swap out class
 
 					if(arrSize === 0){
@@ -218,7 +218,7 @@ router.post('/', (req, res) => {
 					} 
 					// retrieve a random number
 					let singleVictim = randomNum.integer(1, number);
-					console.log('***** singleVictim', singleVictim)
+					console.log('***** random single victim', singleVictim)
 
 					// select victim in array
 					Victim.aggregate([{
@@ -226,7 +226,7 @@ router.post('/', (req, res) => {
 					}]).exec((err, victim) => {
 						// tada! random user
 						mwVictim = victim[0].mwVictims  // swap out class
-						console.log('***** victim 1', mwVictim);  // swap out class
+						console.log('***** victim before promise', mwVictim);  // swap out class
 
 						// delete victim in array
 						Victim.updateOne({},{ $pull: {mwVictims: mwVictim} }, (err, res) => {  // swap out class
@@ -242,7 +242,7 @@ router.post('/', (req, res) => {
 			});
 
 			promiseSetup.then(() => {
-				console.log('***** victim 2', mwVictim);  // swap out class
+				console.log('***** victim after promise', mwVictim);  // swap out class
 				
 				return res.status(200).send(
 					{
@@ -268,7 +268,7 @@ router.post('/', (req, res) => {
 				}], (err, size) => {
 					if (err) throw err;
 					let arrSize = size[0].tthVictims;  // swap out class
-					console.log('***** size', arrSize)  
+					console.log('***** victim pool size', arrSize)  
 					let number = size[0].tthVictims;  // swap out class
 
 					if(arrSize === 0){
@@ -281,7 +281,7 @@ router.post('/', (req, res) => {
 
 					// retrieve a random number
 					let singleVictim = randomNum.integer(1, number);
-					console.log('***** singleVictim', singleVictim)
+					console.log('***** random single victim', singleVictim)
 
 					// select victim in array
 					Victim.aggregate([{
@@ -289,7 +289,7 @@ router.post('/', (req, res) => {
 					}]).exec((err, victim) => {
 						// tada! random user
 						tthVictim = victim[0].tthVictims  // swap out class
-						console.log('***** victim 1', tthVictim);  // swap out class
+						console.log('***** victim before promise', tthVictim);  // swap out class
 
 						// delete victim in array
 						Victim.updateOne({},{ $pull: {tthVictims: tthVictim} }, (err, res) => {  // swap out class
@@ -305,7 +305,7 @@ router.post('/', (req, res) => {
 			});
 
 			promiseSetup.then(() => {
-				console.log('***** victim 2', tthVictim);  // swap out class
+				console.log('***** victim after promise', tthVictim);  // swap out class
 				
 				return res.status(200).send(
 					{
@@ -331,7 +331,7 @@ router.post('/', (req, res) => {
 				}], (err, size) => {
 					if (err) throw err;
 					let arrSize = size[0].satVictims;  // swap out class
-					console.log('***** size', arrSize)  
+					console.log('***** victim pool size', arrSize)  
 					let number = size[0].satVictims;  // swap out class
 
 					if(arrSize === 0){
@@ -344,7 +344,7 @@ router.post('/', (req, res) => {
 
 					// retrieve a random number
 					let singleVictim = randomNum.integer(1, number);
-					console.log('***** singleVictim', singleVictim)
+					console.log('***** random single victim', singleVictim)
 
 					// select victim in array
 					Victim.aggregate([{
@@ -352,7 +352,7 @@ router.post('/', (req, res) => {
 					}]).exec((err, victim) => {
 						// tada! random user
 						satVictim = victim[0].satVictims  // swap out class
-						console.log('***** victim 1', satVictim);  // swap out class
+						console.log('***** victim before promise', satVictim);  // swap out class
 
 						// delete victim in array
 						Victim.updateOne({},{ $pull: {satVictims: satVictim} }, (err, res) => {  // swap out class
@@ -368,7 +368,7 @@ router.post('/', (req, res) => {
 			});
 
 			promiseSetup.then(() => {
-				console.log('***** victim 2', satVictim);  // swap out class
+				console.log('***** victim after promise', satVictim);  // swap out class
 				
 				return res.status(200).send(
 					{
