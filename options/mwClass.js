@@ -16,7 +16,6 @@ module.exports = [
 	"Margaret He",
 	"Nicholas Antonyan",
 	"Olga Vyrvich",
-	"Oswaldo Medina",
 	"Rajiv Jagirdar",
 	"Rashid Green",
 	"Vaibhav Pandey",
