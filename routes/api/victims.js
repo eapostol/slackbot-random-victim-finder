@@ -207,10 +207,18 @@ router.post('/', (req, res) => {
 		if(secondRequest.callback_id === 'hunt_victim_sat'){
 			satClass();
 		} else {
-			pageLoadError();
+			return res.status(200).send(
+				{
+					"text": `Zoinks! \nSomething doesn't look right. \nPlease try again. \n${emoji}`
+				}
+			)
 		}
 	} else {
-		pageLoadError();
+		return res.status(200).send(
+			{
+				"text": `Zoinks! \nSomething doesn't look right. \nPlease try again. \n${emoji}`
+			}
+		)
 	}
 });
 
@@ -409,12 +417,12 @@ function satClass(){
 	return;
 }
 
-function pageLoadError(){
-	return res.status(200).send(
-		{
-			"text": `Zoinks! \nSomething doesn't look right. \nPlease try again. \n${emoji}`
-		}
-	)
-}
+// function pageLoadError(){
+// 	return res.status(200).send(
+// 		{
+// 			"text": `Zoinks! \nSomething doesn't look right. \nPlease try again. \n${emoji}`
+// 		}
+// 	)
+// }
 
 module.exports = router;
