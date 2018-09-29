@@ -157,6 +157,7 @@ router.post('/', (req, res) => {
 		return;
 	}
 	if(requestType === 'sat'){
+		
 		let satVictim = '';
 
 		let promiseSetup = new Promise((resolve, reject) => {
@@ -188,7 +189,7 @@ router.post('/', (req, res) => {
 				}]).exec((err, victim) => {
 					// tada! random user
 					satVictim = victim[0].satVictims  // swap out class
-					console.log('***** victim before promise', tthVictim);  // swap out class
+					console.log('***** victim before promise', satVictim);  // swap out class
 
 					// delete victim in array
 					Victim.updateOne({},{ $pull: {satVictims: satVictim} }, (err, res) => {  // swap out class
@@ -210,7 +211,7 @@ router.post('/', (req, res) => {
 				{
 					"text": `_*${satVictim}*_${luckyMsg} \n${byeMsg} \n${emoji}`,  // swap out class
 					"attachments": [
-							anotherVictim.tth  // swap out class
+							anotherVictim.sat  // swap out class
 					]
 				}
 			)
@@ -219,18 +220,6 @@ router.post('/', (req, res) => {
 		
 		return;
 
-
-
-
-
-		// return res.status(200).send(
-		// 	{
-		// 		"text": `_*${satVictim}*_${luckyMsg} \n${byeMsg} \n${emoji}`,
-		// 		"attachments": [
-		// 			anotherVictim.sat
-		// 		]
-		// 	}
-		// )
 	}
 	if(requestType === 'reset'){
 		// first, delete all db
