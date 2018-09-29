@@ -18,7 +18,7 @@ const Victim = require('../../models/Victim');
 // post request
 router.post('/', (req, res) => {
 
-	// fyi, I did previously use Math.floor(Math.random() * x) but some felt the randomnes wasn't so random
+	// fyi, I did previously use Math.floor(Math.random() * x) but some felt the randomnes wasn't so random. therefore I am using random-js
 	let byeMsg = bye[randomNum.integer(0, (bye.length)-1)];
 	let luckyMsg = lucky[randomNum.integer(0, (lucky.length)-1)];
 	let emoji = emojis[randomNum.integer(0, (emojis.length)-1)];
@@ -157,15 +157,81 @@ router.post('/', (req, res) => {
 		return;
 	}
 	if(requestType === 'sat'){
-		return res.status(200).send(
-			{
-				"text": `_*${satVictim}*_${luckyMsg} \n${byeMsg} \n${emoji}`,
-				"attachments": [
-					anotherVictim.sat
-				]
-			}
+		let satVictim = '';
+
+		let promiseSetup = new Promise((resolve, reject) => {
+			
+			// find the total number of victims in array
+			Victim.aggregate([{ 
+				$project: {satVictims: {$size: "$satVictims"}}  // swap out class
+			}], (err, size) => {
+				if (err) throw err;
+				let arrSize = size[0].satVictims;  // swap out class
+				console.log('***** victim pool size', arrSize)  
+				let number = size[0].satVictims;  // swap out class
+
+				if(arrSize === 0){
+					return res.status(200).send(
+						{
+							"text": 'Uh oh, no more victims. :cry: \n To get more, enter `/victim reset`.'
+						}
+					)
+				} 
+
+				// retrieve a random number
+				let singleVictim = randomNum.integer(1, number);
+				console.log('***** random single victim', singleVictim)
+
+				// select victim in array
+				Victim.aggregate([{
+					$project: {satVictims: {$arrayElemAt: ["$satVictims", singleVictim-1]}}  // swap out class
+				}]).exec((err, victim) => {
+					// tada! random user
+					satVictim = victim[0].satVictims  // swap out class
+					console.log('***** victim before promise', tthVictim);  // swap out class
+
+					// delete victim in array
+					Victim.updateOne({},{ $pull: {satVictims: satVictim} }, (err, res) => {  // swap out class
+						console.log(`***** ${satVictim} removed`)  // swap out class
+					})
+
+					resolve();
+					if (err)  {
+						reject();
+					};
+				})
+			})
+		});
+
+		promiseSetup.then(() => {
+			console.log('***** victim after promise', satVictim);  // swap out class
+			
+			return res.status(200).send(
+				{
+					"text": `_*${satVictim}*_${luckyMsg} \n${byeMsg} \n${emoji}`,  // swap out class
+					"attachments": [
+							anotherVictim.tth  // swap out class
+					]
+				}
+			)
+		})
+		.catch(err => console.log(err));
 		
-	)}
+		return;
+
+
+
+
+
+		// return res.status(200).send(
+		// 	{
+		// 		"text": `_*${satVictim}*_${luckyMsg} \n${byeMsg} \n${emoji}`,
+		// 		"attachments": [
+		// 			anotherVictim.sat
+		// 		]
+		// 	}
+		// )
+	}
 	if(requestType === 'reset'){
 		// first, delete all db
 		mongoose.connection.dropCollection('victims', (err) => {
