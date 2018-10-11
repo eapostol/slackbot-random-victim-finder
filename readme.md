@@ -6,6 +6,8 @@ To initialize enter, `/victim reset`. This action will reset the database with _
 
 To choose a name enter, `/victim mw`, `/victim tth` or `/victim sat` and voilà!
 
+<img src="./assets/screenshot.png" alt="screenshot of chosen student" width="600"/>
+
 ## Table of Contents
 
 - [Installation](#installation)
