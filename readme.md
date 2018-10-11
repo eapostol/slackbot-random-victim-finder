@@ -1,6 +1,10 @@
 # README &middot; [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](#license)  
 
-This application was created to randomly select a student in class using a custom Slack slash command followed with the day of class. Options are `/victim mw`, `/victim tth`, `/victim sat`, and `/victim reset`.   
+This application was created to randomly select a student in class using a custom Slack slash command followed with the day of class. Chosen names will be removed from the database eliminating the possibilty of reselecting the same person. 
+
+To initialize enter, `/victim reset`. This action will reset the database with _all_ names for _all_ classes. This should be done when the names have been exhausted or when the list needs to be rebuilt.
+
+To choose a name enter, `/victim mw`, `/victim tth` or `/victim sat` and voilà!
 
 ## Table of Contents
 
