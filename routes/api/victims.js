@@ -57,19 +57,34 @@ router.post('/', (req, res) => {
 		// }
 	} 
 
-	if(requestType === 'mw'){  // update if neccessary
-		mwVictimSearch(res)
+	switch(requestType){
+		case 'mw':
+			mwVictimSearch(res);
+		case 'tth':
+			tthVictimSearch(res);
+		case 'sat':
+			satVictimSearch(res);
+		default:
+			return res.status(200).send(
+				{
+					"text": `Zoinks! \nSomething doesn't look right. \nPlease try again. \n${emoji}`
+				}
+			)
 	}
-	if(requestType === 'tth'){  // update if neccessary
 
-		tthVictimSearch(res)
-	}
-	if(requestType === 'sat'){  // update if neccessary
-		satVictimSearch(res)
-	}
-	if (requestType === 'reset'){
-		reset(res)
-	}
+	// if(requestType === 'mw'){  // update if neccessary
+	// 	mwVictimSearch(res)
+	// }
+	// if(requestType === 'tth'){  // update if neccessary
+
+	// 	tthVictimSearch(res)
+	// }
+	// if(requestType === 'sat'){  // update if neccessary
+	// 	satVictimSearch(res)
+	// }
+	// if (requestType === 'reset'){
+	// 	reset(res)
+	// }
 
 	
 	// else {
