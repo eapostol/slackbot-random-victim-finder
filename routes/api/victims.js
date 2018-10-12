@@ -42,13 +42,13 @@ router.post('/', (req, res) => {
 		
 		switch (secondRequest.callback_id){
 			case 'hunt_victim_mw':  // update if neccessary
-				mwVictimSearch();
+				mwVictimSearch(res);
 				break;
 			case 'hunt_victim_tth':  // update if neccessary
-				tthVictimSearch();
+				tthVictimSearch(res);
 				break;
 			case 'hunt_victim_sat':  // update if neccessary
-				satVictimSearch();
+				satVictimSearch(res);
 				break;
 			default: 
 				return res.status(200).send(
@@ -61,16 +61,16 @@ router.post('/', (req, res) => {
 
 		switch (requestType){
 			case 'mw':  // update if neccessary
-				mwVictimSearch();
+				mwVictimSearch(res);
 				break;
 			case 'tth':  // update if neccessary
-				tthVictimSearch();
+				tthVictimSearch(res);
 				break;
 			case 'sat':  // update if neccessary
-				satVictimSearch();
+				satVictimSearch(res);
 				break;
 			case 'reset':
-				reset();
+				reset(res);
 				break;
 			default:
 				return res.status(200).send(
@@ -82,7 +82,7 @@ router.post('/', (req, res) => {
 	}
 });
 
-function mwVictimSearch(){
+function mwVictimSearch(res){
 	let mwVictim = '';  // update if neccessary
 
 	let promiseSetup = new Promise((resolve, reject) => {
@@ -147,7 +147,7 @@ function mwVictimSearch(){
 	return;
 };
 
-function tthVictimSearch(){
+function tthVictimSearch(res){
 	let tthVictim = '';
 
 	let promiseSetup = new Promise((resolve, reject) => {
@@ -210,7 +210,7 @@ function tthVictimSearch(){
 	return;
 }
 
-function satVictimSearch(){
+function satVictimSearch(res){
 	let satVictim = '';  // update if neccessary
 
 	let promiseSetup = new Promise((resolve, reject) => {
@@ -273,7 +273,7 @@ function satVictimSearch(){
 	return;
 }
 
-function reset(){
+function reset(res){
 	// first, delete all db
 	mongoose.connection.dropCollection('victims', (err) => {
 		console.log('\'victims\' collection has been removed.')
