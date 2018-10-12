@@ -40,11 +40,10 @@ router.post('/', (req, res) => {
 				$project: {mwVictims: {$size: "$mwVictims"}}  // update if neccessary
 			}], (err, size) => {
 				if (err) throw err;
-				let arrSize = size[0].mwVictims;  // update if neccessary
-				console.log('***** victim pool size', arrSize)  
 				let number = size[0].mwVictims;  // update if neccessary
+				console.log('***** victim pool size', number)  
 
-				if(arrSize === 0){
+				if(number === 0){
 					return res.status(200).send(
 						{
 							"text": 'Uh oh, no more victims. :cry: \n To get more, enter `/victim reset`.'
@@ -104,11 +103,10 @@ router.post('/', (req, res) => {
 				$project: {tthVictims: {$size: "$tthVictims"}}  // update if neccessary
 			}], (err, size) => {
 				if (err) throw err;
-				let arrSize = size[0].tthVictims;  // update if neccessary
-				console.log('***** victim pool size', arrSize)  
 				let number = size[0].tthVictims;  // update if neccessary
+				console.log('***** victim pool size', number)  
 
-				if(arrSize === 0){
+				if(number === 0){
 					return res.status(200).send(
 						{
 							"text": 'Uh oh, no more victims. :cry: \n To get more, enter `/victim reset`.'
@@ -168,11 +166,10 @@ router.post('/', (req, res) => {
 				$project: {satVictims: {$size: "$satVictims"}}  // update if neccessary
 			}], (err, size) => {
 				if (err) throw err;
-				let arrSize = size[0].satVictims;  // update if neccessary
-				console.log('***** victim pool size', arrSize)  
 				let number = size[0].satVictims;  // update if neccessary
+				console.log('***** victim pool size', number)  
 
-				if(arrSize === 0){
+				if(number === 0){
 					return res.status(200).send(
 						{
 							"text": 'Uh oh, no more victims. :cry: \n To get more, enter `/victim reset`.'
@@ -260,11 +257,10 @@ router.post('/', (req, res) => {
 					$project: {mwVictims: {$size: "$mwVictims"}}  // update if neccessary
 				}], (err, size) => {
 					if (err) throw err;
-					let arrSize = size[0].mwVictims;  // update if neccessary
-					console.log('***** victim pool size', arrSize)  
 					let number = size[0].mwVictims;  // update if neccessary
+					console.log('***** victim pool size', number)  
 
-					if(arrSize === 0){
+					if(number === 0){
 						return res.status(200).send(
 							{
 								"text": 'Uh oh, no more victims. :cry: \n To get more, enter `/victim reset`.'
@@ -322,11 +318,10 @@ router.post('/', (req, res) => {
 					$project: {tthVictims: {$size: "$tthVictims"}}  // update if neccessary
 				}], (err, size) => {
 					if (err) throw err;
-					let arrSize = size[0].tthVictims;  // update if neccessary
-					console.log('***** victim pool size', arrSize)  
 					let number = size[0].tthVictims;  // update if neccessary
+					console.log('***** victim pool size', number)  
 
-					if(arrSize === 0){
+					if(number === 0){
 						return res.status(200).send(
 							{
 								"text": 'Uh oh, no more victims. :cry: \n To get more, enter `/victim reset`.'
@@ -385,11 +380,10 @@ router.post('/', (req, res) => {
 					$project: {satVictims: {$size: "$satVictims"}}  // update if neccessary
 				}], (err, size) => {
 					if (err) throw err;
-					let arrSize = size[0].satVictims;  // update if neccessary
-					console.log('***** victim pool size', arrSize)  
 					let number = size[0].satVictims;  // update if neccessary
+					console.log('***** victim pool size', number)  
 
-					if(arrSize === 0){
+					if(number === 0){
 						return res.status(200).send(
 							{
 								"text": 'Uh oh, no more victims. :cry: \n To get more, enter `/victim reset`.'
