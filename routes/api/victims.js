@@ -82,7 +82,7 @@ router.post('/', (req, res) => {
 	}
 });
 
-function mwVictimSearch(res){
+function mwVictimSearch(res){  // update if neccessary
 	let mwVictim = '';  // update if neccessary
 
 	let promiseSetup = new Promise((resolve, reject) => {
@@ -97,8 +97,6 @@ function mwVictimSearch(res){
 			console.log('***** victim pool size', number)  
 
 			if(number === 0){
-				console.log('***** 1st res.status')
-				
 				return res.status(200).send(
 					{
 						"text": 'Uh oh, no more victims. :cry: \n To get more, enter `/victim reset`.'
@@ -147,7 +145,7 @@ function mwVictimSearch(res){
 	return;
 };
 
-function tthVictimSearch(res){
+function tthVictimSearch(res){  // update if neccessary
 	let tthVictim = '';
 
 	let promiseSetup = new Promise((resolve, reject) => {
@@ -210,7 +208,7 @@ function tthVictimSearch(res){
 	return;
 }
 
-function satVictimSearch(res){
+function satVictimSearch(res){  // update if neccessary
 	let satVictim = '';  // update if neccessary
 
 	let promiseSetup = new Promise((resolve, reject) => {

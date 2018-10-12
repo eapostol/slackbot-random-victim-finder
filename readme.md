@@ -2,7 +2,7 @@
 
 This application was created to randomly select a student in class using a custom Slack slash command followed with the day of class. Chosen names will be removed from the database eliminating the possibilty of reselecting the same person. 
 
-To initialize enter, `/victim reset`. This action will reset the database with _all_ names for _all_ classes. This should be done when the names have been exhausted or when the list needs to be rebuilt.
+To initialize enter, `/victim reset`. This action will reset the database with _all_ names for _all_ cohorts. This should be done when the names have been exhausted or when the list needs to be rebuilt.
 
 To choose a name enter, `/victim mw`, `/victim tth` or `/victim sat` and voilà!
 
@@ -25,7 +25,7 @@ $ nodemon index.js
 ```
 Set up within Slack is still required (i.e. slash command, interactive message, db).
 
-Note to self: command to view the log within Heroku is `heroku logs --source app`
+Note to self: command to view the log within Heroku is `heroku logs --source app` or `heroku logs --tail` (realtime).
 
 <sub>Hosting on Heroku using the free tier may result in a slight response delay while the server spins up.</sub>
 
@@ -35,7 +35,7 @@ To use this within your own Slack workspace the following elements will require 
 
 * Hosting. This application is hosted on Heroku using their [free tier](https://www.heroku.com/pricing). Continue using Heroku or any hosting service of your liking.
 * mLab. Create a new deployement and Users then update the URI. 
-* Class sessions. This app was built for two different classes (Monday/Wednesday & Tuesday/Thursday) that meet on Saturday in a combined session. If your schedule differs the following files will require session names (i.e. mw, tth, sat) to be updated, removed and/or added:
+* Cohort session. This app was built for two different cohorts (Monday/Wednesday & Tuesday/Thursday) that meet on Saturday in a combined session. If your schedule differs the following files will require session names (i.e. mw, tth, sat) to be updated, removed and/or added:
 	* [Victim.js](./models/Victim.js). Update model names as needed. 
 	* [anotherVictim.js](./options/anotherVictim.js). Update `callback_id` and exports names as needed. 
 	* [mwClass.js](./options/mwClass.js). Update with the names of your students.
@@ -43,27 +43,14 @@ To use this within your own Slack workspace the following elements will require 
 
 	<img src="./assets/screenshots/require.png" alt="victims.js require statement" width="60%"/> 
 
-	* [victims.js](./routes/api/victims.js). Be aware the use of mw, tth, and sat 
+	* [victims.js](./routes/api/victims.js). Be aware the use of 'mw', 'tth', and 'sat' and where those values should be updated. Making changes to any of the earlier mentioned files will directly affect this file.
 * Slack Integration. Create a [new app](https://api.slack.com/apps) and develop it in your Slack workspace.
-	* Basic Information. Fill in the App Name, Short Description and Background Color.
-	* Interactive Components. Turn this on. The Request URL should point back to your server with `/api/custom_name/survey` appended to the end. Swap `custom_name` with a name of your liking and update the route within `server.js`. 
-
-	<img src="./assets/screenshots/interactivity.png" alt="slack interactivity" width="60%"/>	
-
-	<img src="./assets/screenshots/routes.png" alt="routes" width="60%"/>
-
-	* Slash Commands. Create a new command using `/fist-to-five`. The Request URL should point back to your server but with `/api/custom_name` appended to the end. The custom name used here should be the same used in Interactive Components. Give your app a short description and any usage hint(s) (e.g. "Use `/fist-to-five reset` to reset app")
-	* OAuth Tokens & Redirect URLs. Include the following Scopes: `channels:read`, `chat:write:bot`, `chat:write:user`, `groups:read`, `im:read`, & `mpim:read`, `commands`. Then click the Install App to Workspace button to reveal your OAuth access token.  
-* Keys. Be sure to update the [keys](./config/keys_prod.js) accordingly and update the `slackTokenPath` within the routes file (i.e. slackTokenPath.*uclaSlackAccessToken*).
-
-<img src="./assets/screenshots/token.png" alt="slack access token" width="60%"/> 
-
-* `server.js`. Require your file into `server.js` and connect the route. Ignore/remove the code block inside the pink box. 
-
-<img src="./assets/screenshots/require.png" alt="slack interactivity" width="60%"/>
-
-* `thumb_url`. Within the routes file look for `thumb_url`. There are 3 occurences but only 1 requires updating. If you choose to include a thumbnail image with the message confirmation, update the path. Otherwise it can removed.
-* Custom emojis. The the hand emojis used can be found [here](./assets/hand/).
+	* Basic Information. Fill in the App Name, Short Description and Background Color. Included in the assets folder is an [image file](./assets/crosshairs.jpeg) that can be used for the app icon. 
+	* Interactive Components. Turn this on. The Request URL should point back to your server with `/api/victims/` appended to the end. 
+	* Slash Commands. Create a new command using `/victim`. This can be updated to your liking. The Request URL should point back to your server but with `/api/victims/` appended to the end. The custom name used here should be the same used in Interactive Components. Give your app a short description and any usage hint(s) (e.g. "Use `/victim mw`, `/victim tth`, `/victim sat` or `/victim reset`")
+	* OAuth Tokens & Redirect URLs. Include the following Scopes: `commands`. Then click the Install App to Workspace button. No need to copy the access token.   
+* Key. Be sure to update the [key](./config/keys_prod.js) accordingly with the mLab URI.
+* [index.js](./index.js). Update the require path if changing the route structure. 
 
 ## Technology
 
