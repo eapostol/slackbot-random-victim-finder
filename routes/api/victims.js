@@ -33,7 +33,7 @@ router.post('/', (req, res) => {
 	// console.log('**** 3', requestType);
 	
 	if(requestType === 'mw'){  // update if neccessary
-		
+		console.log('***** original request')
 		mwVictimSearch(res)
 	}
 	if(requestType === 'tth'){  // update if neccessary
@@ -192,6 +192,8 @@ router.post('/', (req, res) => {
 		// console.log('**** 6', secondRequest.callback_id);
 
 		if(secondRequest.callback_id === 'hunt_victim_mw'){  // update if neccessary
+			console.log('***** second request')
+		
 			mwVictimSearch(res)
 		}
 		if(secondRequest.callback_id === 'hunt_victim_tth'){    // update if neccessary
