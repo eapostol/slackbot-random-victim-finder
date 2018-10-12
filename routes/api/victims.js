@@ -39,15 +39,34 @@ router.post('/', (req, res) => {
 		// console.log('**** 5', req.body.payload.callback_id); 
 		// console.log('**** 6', secondRequest.callback_id);
 
-		if(secondRequest.callback_id === 'hunt_victim_mw'){  // update if neccessary
-			mwVictimSearch(res)
+		switch (secondRequest.callback_id){
+			case 'hunt_victim_mw':
+				mwVictimSearch(res);
+				break;
+			case 'hunt_victim_tth':
+				tthVictimSearch(res);
+				break;
+			case 'hunt_victim_sat':
+				satVictimSearch(res);
+				break;
+			default: 
+				return res.status(200).send(
+					{
+						"text": `Zoinks! \nSomething doesn't look right. \nPlease try again. \n${emoji}`
+					}
+				)
 		}
-		if(secondRequest.callback_id === 'hunt_victim_tth'){    // update if neccessary
-			tthVictimSearch(res)
-		}
-		if(secondRequest.callback_id === 'hunt_victim_sat'){  // update if neccessary
-			satVictimSearch(res)
-		} 
+	} else {
+
+		// if(secondRequest.callback_id === 'hunt_victim_mw'){  // update if neccessary
+		// 	mwVictimSearch(res)
+		// }
+		// if(secondRequest.callback_id === 'hunt_victim_tth'){    // update if neccessary
+		// 	tthVictimSearch(res)
+		// }
+		// if(secondRequest.callback_id === 'hunt_victim_sat'){  // update if neccessary
+		// 	satVictimSearch(res)
+		// } 
 		// else {
 		// 	return res.status(200).send(
 		// 		{
@@ -55,9 +74,10 @@ router.post('/', (req, res) => {
 		// 		}
 		// 	)
 		// }
-	} 
+	
+	
 
-	switch(requestType){
+	switch (requestType){
 		case 'mw':
 			mwVictimSearch(res);
 			break;
@@ -74,7 +94,7 @@ router.post('/', (req, res) => {
 				}
 			)
 	}
-
+}
 	// if(requestType === 'mw'){  // update if neccessary
 	// 	mwVictimSearch(res)
 	// }
