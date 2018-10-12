@@ -167,13 +167,14 @@ router.post('/', (req, res) => {
 			.catch(err => console.log(err));
 			
 			return;
-		} else {
-			return res.status(200).send(
-				{
-					"text": `Zoinks! \nSomething doesn't look right. \nPlease try again. \n${emoji}`
-				}
-			)
-		}
+		} 
+		// else {
+		// 	return res.status(200).send(
+		// 		{
+		// 			"text": `Zoinks! \nSomething doesn't look right. \nPlease try again. \n${emoji}`
+		// 		}
+		// 	)
+		// }
 	} 
 
 	if(requestType === 'mw'){  // update if neccessary
