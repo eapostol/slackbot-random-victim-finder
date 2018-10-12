@@ -87,6 +87,9 @@ router.post('/', (req, res) => {
 		case 'sat':
 			satVictimSearch(res);
 			break;
+		case 'reset':
+			reset(res);
+			break;
 		default:
 			return res.status(200).send(
 				{
