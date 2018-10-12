@@ -6,7 +6,7 @@ To initialize enter, `/victim reset`. This action will repopulate the database w
 
 To randomly select a name enter, `/victim mw`, `/victim tth` or `/victim sat` and voilà!
 
-<img src="https://media.giphy.com/media/fnmmlUPma6YdYELYYV/giphy.gif" alt="screenshot of chosen student" width="60%"/>
+<img src="https://media.giphy.com/media/3niFSKZgmKGEt9u0Dt/giphy.gif" alt="screenshot of chosen student" width="60%"/>
 
 ## Table of Contents
 
