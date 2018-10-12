@@ -32,7 +32,7 @@ router.post('/', (req, res) => {
 	// console.log('**** 2', req.body);
 	// console.log('**** 3', requestType);
 	
-	// NOTE: when button is clicked on
+	// NOTE: when 'hunt' button is clicked on
 	if (req.body.payload){
 		const secondRequest = JSON.parse(req.body.payload);
 		// console.log('**** 4', req.body.payload);
@@ -58,68 +58,27 @@ router.post('/', (req, res) => {
 		}
 	} else {
 
-		// if(secondRequest.callback_id === 'hunt_victim_mw'){  // update if neccessary
-		// 	mwVictimSearch(res)
-		// }
-		// if(secondRequest.callback_id === 'hunt_victim_tth'){    // update if neccessary
-		// 	tthVictimSearch(res)
-		// }
-		// if(secondRequest.callback_id === 'hunt_victim_sat'){  // update if neccessary
-		// 	satVictimSearch(res)
-		// } 
-		// else {
-		// 	return res.status(200).send(
-		// 		{
-		// 			"text": `Zoinks! \nSomething doesn't look right. \nPlease try again. \n${emoji}`
-		// 		}
-		// 	)
-		// }
-	
-	
-
-	switch (requestType){
-		case 'mw':
-			mwVictimSearch(res);
-			break;
-		case 'tth':
-			tthVictimSearch(res);
-			break;
-		case 'sat':
-			satVictimSearch(res);
-			break;
-		case 'reset':
-			reset(res);
-			break;
-		default:
-			return res.status(200).send(
-				{
-					"text": `Zoinks! \nSomething doesn't look right. \nPlease try again. \n${emoji}`
-				}
-			)
+		switch (requestType){
+			case 'mw':
+				mwVictimSearch(res);
+				break;
+			case 'tth':
+				tthVictimSearch(res);
+				break;
+			case 'sat':
+				satVictimSearch(res);
+				break;
+			case 'reset':
+				reset(res);
+				break;
+			default:
+				return res.status(200).send(
+					{
+						"text": `Zoinks! \nSomething doesn't look right. \nPlease try again. \n${emoji}`
+					}
+				)
+		}
 	}
-}
-	// if(requestType === 'mw'){  // update if neccessary
-	// 	mwVictimSearch(res)
-	// }
-	// if(requestType === 'tth'){  // update if neccessary
-
-	// 	tthVictimSearch(res)
-	// }
-	// if(requestType === 'sat'){  // update if neccessary
-	// 	satVictimSearch(res)
-	// }
-	// if (requestType === 'reset'){
-	// 	reset(res)
-	// }
-
-	
-	// else {
-	// 	return res.status(200).send(
-	// 		{
-	// 			"text": `Zoinks! \nSomething doesn't look right. \nPlease try again. \n${emoji}`
-	// 		}
-	// 	)
-	// }
 });
 
 function mwVictimSearch(res){
@@ -173,7 +132,6 @@ function mwVictimSearch(res){
 
 		promiseSetup.then(() => {
 			console.log('***** victim after promise', mwVictim);  // update if neccessary
-			console.log('***** 2nd res.status')
 			return res.status(200).send(
 				{
 					"text": `_*${mwVictim}*_${luckyMsg} \n${byeMsg} \n${emoji}`,  // update if neccessary
