@@ -350,6 +350,8 @@ function mwVictimSearch(res){
 				console.log('***** victim pool size', number)  
 
 				if(number === 0){
+					console.log('***** 1st res.status')
+					
 					return res.status(200).send(
 						{
 							"text": 'Uh oh, no more victims. :cry: \n To get more, enter `/victim reset`.'
@@ -384,7 +386,7 @@ function mwVictimSearch(res){
 
 		promiseSetup.then(() => {
 			console.log('***** victim after promise', mwVictim);  // update if neccessary
-			
+			console.log('***** 2nd res.status')
 			return res.status(200).send(
 				{
 					"text": `_*${mwVictim}*_${luckyMsg} \n${byeMsg} \n${emoji}`,  // update if neccessary
