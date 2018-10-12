@@ -60,10 +60,13 @@ router.post('/', (req, res) => {
 	switch(requestType){
 		case 'mw':
 			mwVictimSearch(res);
+			break;
 		case 'tth':
 			tthVictimSearch(res);
+			break;
 		case 'sat':
 			satVictimSearch(res);
+			break;
 		default:
 			return res.status(200).send(
 				{
