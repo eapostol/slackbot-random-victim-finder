@@ -32,23 +32,7 @@ router.post('/', (req, res) => {
 		
 		let mwVictim = '';  // update if neccessary
 
-		mwVictimSearch()
-
-		promiseSetup.then(() => {
-			console.log('***** victim after promise', mwVictim);  // update if neccessary
-			
-			return res.status(200).send(
-				{
-					"text": `_*${mwVictim}*_${luckyMsg} \n${byeMsg} \n${emoji}`,  // update if neccessary
-					"attachments": [
-							anotherVictim.mw  // update if neccessary
-					]
-				}
-			)
-		})
-		.catch(err => console.log(err));
-		
-		return;
+		mwVictimSearch(res)
 	}
 	if(requestType === 'tth'){  // update if neccessary
 
@@ -208,23 +192,7 @@ router.post('/', (req, res) => {
 		if(secondRequest.callback_id === 'hunt_victim_mw'){  // update if neccessary
 			let mwVictim = '';  // update if neccessary
 
-			mwVictimSearch()
-
-			promiseSetup.then(() => {
-				console.log('***** victim after promise', mwVictim);  // update if neccessary
-				
-				return res.status(200).send(
-					{
-						"text": `_*${mwVictim}*_${luckyMsg} \n${byeMsg} \n${emoji}`,  // update if neccessary
-						"attachments": [
-							anotherVictim.mw  // update if neccessary
-						]
-					}
-				)
-			})
-			.catch(err => console.log(err));
-			
-			return;
+			mwVictimSearch(res)
 		}
 		if(secondRequest.callback_id === 'hunt_victim_tth'){    // update if neccessary
 			let tthVictim = '';  // update if neccessary
@@ -365,7 +333,7 @@ router.post('/', (req, res) => {
 	}
 });
 
-function mwVictimSearch(){
+function mwVictimSearch(res){
 	let promiseSetup = new Promise((resolve, reject) => {
 			
 		// find the total number of victims in array
@@ -409,6 +377,22 @@ function mwVictimSearch(){
 			})
 		})
 	});
+
+	promiseSetup.then(() => {
+		console.log('***** victim after promise', mwVictim);  // update if neccessary
+		
+		return res.status(200).send(
+			{
+				"text": `_*${mwVictim}*_${luckyMsg} \n${byeMsg} \n${emoji}`,  // update if neccessary
+				"attachments": [
+						anotherVictim.mw  // update if neccessary
+				]
+			}
+		)
+	})
+	.catch(err => console.log(err));
+	
+	return;
 };
 
 
