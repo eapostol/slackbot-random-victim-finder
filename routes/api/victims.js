@@ -39,15 +39,16 @@ router.post('/', (req, res) => {
 		// console.log('**** 5', req.body.payload.callback_id); 
 		// console.log('**** 6', secondRequest.callback_id);
 
+		
 		switch (secondRequest.callback_id){
-			case 'hunt_victim_mw':
-				mwVictimSearch(res);
+			case 'hunt_victim_mw':  // update if neccessary
+				mwVictimSearch();
 				break;
-			case 'hunt_victim_tth':
-				tthVictimSearch(res);
+			case 'hunt_victim_tth':  // update if neccessary
+				tthVictimSearch();
 				break;
-			case 'hunt_victim_sat':
-				satVictimSearch(res);
+			case 'hunt_victim_sat':  // update if neccessary
+				satVictimSearch();
 				break;
 			default: 
 				return res.status(200).send(
@@ -59,17 +60,17 @@ router.post('/', (req, res) => {
 	} else {
 
 		switch (requestType){
-			case 'mw':
-				mwVictimSearch(res);
+			case 'mw':  // update if neccessary
+				mwVictimSearch();
 				break;
-			case 'tth':
-				tthVictimSearch(res);
+			case 'tth':  // update if neccessary
+				tthVictimSearch();
 				break;
-			case 'sat':
-				satVictimSearch(res);
+			case 'sat':  // update if neccessary
+				satVictimSearch();
 				break;
 			case 'reset':
-				reset(res);
+				reset();
 				break;
 			default:
 				return res.status(200).send(
@@ -81,217 +82,217 @@ router.post('/', (req, res) => {
 	}
 });
 
-function mwVictimSearch(res){
+function mwVictimSearch(){
 	let mwVictim = '';  // update if neccessary
 
-		let promiseSetup = new Promise((resolve, reject) => {
-			
-			// find the total number of victims in array
-			// `.aggregate` is a mongoDB method
-			Victim.aggregate([{ 
-				$project: {mwVictims: {$size: "$mwVictims"}}  // update if neccessary
-			}], (err, size) => {
-				if (err) throw err;
-				let number = size[0].mwVictims;  // update if neccessary
-				console.log('***** victim pool size', number)  
-
-				if(number === 0){
-					console.log('***** 1st res.status')
-					
-					return res.status(200).send(
-						{
-							"text": 'Uh oh, no more victims. :cry: \n To get more, enter `/victim reset`.'
-						}
-					)
-				} 
-
-				// retrieve a random number
-				let singleVictim = randomNum.integer(1, number);
-				console.log('***** random single victim', singleVictim)
-
-				// select victim in array
-				Victim.aggregate([{
-					$project: {mwVictims: {$arrayElemAt: ["$mwVictims", singleVictim-1]}}  // update if neccessary
-				}]).exec((err, victim) => {
-					// tada! random user
-					mwVictim = victim[0].mwVictims  // update if neccessary
-					console.log('***** victim before promise', mwVictim);  // update if neccessary
-
-					// delete victim in array
-					Victim.updateOne({},{ $pull: {mwVictims: mwVictim} }, (err, res) => {  // update if neccessary
-						console.log(`***** ${mwVictim} removed`)  // update if neccessary
-					})
-
-					resolve();
-					if (err)  {
-						reject();
-					};
-				})
-			})
-		});
-
-		promiseSetup.then(() => {
-			console.log('***** victim after promise', mwVictim);  // update if neccessary
-			return res.status(200).send(
-				{
-					"text": `_*${mwVictim}*_${luckyMsg} \n${byeMsg} \n${emoji}`,  // update if neccessary
-					"attachments": [
-							anotherVictim.mw  // update if neccessary
-					]
-				}
-			)
-		})
-		.catch(err => console.log(err));
+	let promiseSetup = new Promise((resolve, reject) => {
 		
-		return;
-};
-
-function tthVictimSearch(res){
-	let tthVictim = '';
-
-		let promiseSetup = new Promise((resolve, reject) => {
-			
-			// find the total number of victims in array
-			Victim.aggregate([{ 
-				$project: {tthVictims: {$size: "$tthVictims"}}  // update if neccessary
-			}], (err, size) => {
-				if (err) throw err;
-				let number = size[0].tthVictims;  // update if neccessary
-				console.log('***** victim pool size', number)  
-
-				if(number === 0){
-					return res.status(200).send(
-						{
-							"text": 'Uh oh, no more victims. :cry: \n To get more, enter `/victim reset`.'
-						}
-					)
-				} 
-
-				// retrieve a random number
-				let singleVictim = randomNum.integer(1, number);
-				console.log('***** random single victim', singleVictim)
-
-				// select victim in array
-				Victim.aggregate([{
-					$project: {tthVictims: {$arrayElemAt: ["$tthVictims", singleVictim-1]}}  // update if neccessary
-				}]).exec((err, victim) => {
-					// tada! random user
-					tthVictim = victim[0].tthVictims  // update if neccessary
-					console.log('***** victim before promise', tthVictim);  // update if neccessary
-
-					// delete victim in array
-					Victim.updateOne({},{ $pull: {tthVictims: tthVictim} }, (err, res) => {  // update if neccessary
-						console.log(`***** ${tthVictim} removed`)  // update if neccessary
-					})
-
-					resolve();
-					if (err)  {
-						reject();
-					};
-				})
-			})
-		});
-
-		promiseSetup.then(() => {
-			console.log('***** victim after promise', tthVictim);  // update if neccessary
-			
-			return res.status(200).send(
-				{
-					"text": `_*${tthVictim}*_${luckyMsg} \n${byeMsg} \n${emoji}`,  // update if neccessary
-					"attachments": [
-							anotherVictim.tth  // update if neccessary
-					]
-				}
-			)
-		})
-		.catch(err => console.log(err));
-		
-		return;
-}
-
-function satVictimSearch(res){
-	let satVictim = '';  // update if neccessary
-
-		let promiseSetup = new Promise((resolve, reject) => {
-			
-			// find the total number of victims in array
-			Victim.aggregate([{ 
-				$project: {satVictims: {$size: "$satVictims"}}  // update if neccessary
-			}], (err, size) => {
-				if (err) throw err;
-				let number = size[0].satVictims;  // update if neccessary
-				console.log('***** victim pool size', number)  
-
-				if(number === 0){
-					return res.status(200).send(
-						{
-							"text": 'Uh oh, no more victims. :cry: \n To get more, enter `/victim reset`.'
-						}
-					)
-				} 
-
-				// retrieve a random number
-				let singleVictim = randomNum.integer(1, number);
-				console.log('***** random single victim', singleVictim)
-
-				// select victim in array
-				Victim.aggregate([{
-					$project: {satVictims: {$arrayElemAt: ["$satVictims", singleVictim-1]}}  // update if neccessary
-				}]).exec((err, victim) => {
-					// tada! random user
-					satVictim = victim[0].satVictims  // update if neccessary
-					console.log('***** victim before promise', satVictim);  // update if neccessary
-
-					// delete victim in array
-					Victim.updateOne({},{ $pull: {satVictims: satVictim} }, (err, res) => {  // update if neccessary
-						console.log(`***** ${satVictim} removed`)  // update if neccessary
-					})
-
-					resolve();
-					if (err)  {
-						reject();
-					};
-				})
-			})
-		});
-
-		promiseSetup.then(() => {
-			console.log('***** victim after promise', satVictim);  // update if neccessary
-			
-			return res.status(200).send(
-				{
-					"text": `_*${satVictim}*_${luckyMsg} \n${byeMsg} \n${emoji}`,  // update if neccessary
-					"attachments": [
-							anotherVictim.sat  // update if neccessary
-					]
-				}
-			)
-		})
-		.catch(err => console.log(err));
-		
-		return;
-}
-
-function reset(res){
-		// first, delete all db
-		mongoose.connection.dropCollection('victims', (err) => {
-			console.log('\'victims\' collection has been removed.')
+		// find the total number of victims in array
+		// `.aggregate` is a mongoDB method
+		Victim.aggregate([{ 
+			$project: {mwVictims: {$size: "$mwVictims"}}  // update if neccessary
+		}], (err, size) => {
 			if (err) throw err;
-		});
-		// second, reseed all db
-		Victim.create({
-			mwVictims: monWed,    // update if neccessary
-			tthVictims: tueThu,    // update if neccessary
-			satVictims: sat    // update if neccessary
-		}, (err) => {
-			if (err) throw err;
-		});
+			let number = size[0].mwVictims;  // update if neccessary
+			console.log('***** victim pool size', number)  
 
+			if(number === 0){
+				console.log('***** 1st res.status')
+				
+				return res.status(200).send(
+					{
+						"text": 'Uh oh, no more victims. :cry: \n To get more, enter `/victim reset`.'
+					}
+				)
+			} 
+
+			// retrieve a random number
+			let singleVictim = randomNum.integer(1, number);
+			console.log('***** random single victim', singleVictim)
+
+			// select victim in array
+			Victim.aggregate([{
+				$project: {mwVictims: {$arrayElemAt: ["$mwVictims", singleVictim-1]}}  // update if neccessary
+			}]).exec((err, victim) => {
+				// tada! random user
+				mwVictim = victim[0].mwVictims  // update if neccessary
+				console.log('***** victim before promise', mwVictim);  // update if neccessary
+
+				// delete victim in array
+				Victim.updateOne({},{ $pull: {mwVictims: mwVictim} }, (err, res) => {  // update if neccessary
+					console.log(`***** ${mwVictim} removed`)  // update if neccessary
+				})
+
+				resolve();
+				if (err)  {
+					reject();
+				};
+			})
+		})
+	});
+
+	promiseSetup.then(() => {
+		console.log('***** victim after promise', mwVictim);  // update if neccessary
 		return res.status(200).send(
 			{
-				"text": "Victim list has been reset! \n Enter `/victim mw`, `/victim tth`, or `/victim sat` to begin new hunt."    // update if neccessary
+				"text": `_*${mwVictim}*_${luckyMsg} \n${byeMsg} \n${emoji}`,  // update if neccessary
+				"attachments": [
+						anotherVictim.mw  // update if neccessary
+				]
 			}
 		)
+	})
+	.catch(err => console.log(err));
+	
+	return;
+};
+
+function tthVictimSearch(){
+	let tthVictim = '';
+
+	let promiseSetup = new Promise((resolve, reject) => {
+		
+		// find the total number of victims in array
+		Victim.aggregate([{ 
+			$project: {tthVictims: {$size: "$tthVictims"}}  // update if neccessary
+		}], (err, size) => {
+			if (err) throw err;
+			let number = size[0].tthVictims;  // update if neccessary
+			console.log('***** victim pool size', number)  
+
+			if(number === 0){
+				return res.status(200).send(
+					{
+						"text": 'Uh oh, no more victims. :cry: \n To get more, enter `/victim reset`.'
+					}
+				)
+			} 
+
+			// retrieve a random number
+			let singleVictim = randomNum.integer(1, number);
+			console.log('***** random single victim', singleVictim)
+
+			// select victim in array
+			Victim.aggregate([{
+				$project: {tthVictims: {$arrayElemAt: ["$tthVictims", singleVictim-1]}}  // update if neccessary
+			}]).exec((err, victim) => {
+				// tada! random user
+				tthVictim = victim[0].tthVictims  // update if neccessary
+				console.log('***** victim before promise', tthVictim);  // update if neccessary
+
+				// delete victim in array
+				Victim.updateOne({},{ $pull: {tthVictims: tthVictim} }, (err, res) => {  // update if neccessary
+					console.log(`***** ${tthVictim} removed`)  // update if neccessary
+				})
+
+				resolve();
+				if (err)  {
+					reject();
+				};
+			})
+		})
+	});
+
+	promiseSetup.then(() => {
+		console.log('***** victim after promise', tthVictim);  // update if neccessary
+		
+		return res.status(200).send(
+			{
+				"text": `_*${tthVictim}*_${luckyMsg} \n${byeMsg} \n${emoji}`,  // update if neccessary
+				"attachments": [
+						anotherVictim.tth  // update if neccessary
+				]
+			}
+		)
+	})
+	.catch(err => console.log(err));
+	
+	return;
+}
+
+function satVictimSearch(){
+	let satVictim = '';  // update if neccessary
+
+	let promiseSetup = new Promise((resolve, reject) => {
+		
+		// find the total number of victims in array
+		Victim.aggregate([{ 
+			$project: {satVictims: {$size: "$satVictims"}}  // update if neccessary
+		}], (err, size) => {
+			if (err) throw err;
+			let number = size[0].satVictims;  // update if neccessary
+			console.log('***** victim pool size', number)  
+
+			if(number === 0){
+				return res.status(200).send(
+					{
+						"text": 'Uh oh, no more victims. :cry: \n To get more, enter `/victim reset`.'
+					}
+				)
+			} 
+
+			// retrieve a random number
+			let singleVictim = randomNum.integer(1, number);
+			console.log('***** random single victim', singleVictim)
+
+			// select victim in array
+			Victim.aggregate([{
+				$project: {satVictims: {$arrayElemAt: ["$satVictims", singleVictim-1]}}  // update if neccessary
+			}]).exec((err, victim) => {
+				// tada! random user
+				satVictim = victim[0].satVictims  // update if neccessary
+				console.log('***** victim before promise', satVictim);  // update if neccessary
+
+				// delete victim in array
+				Victim.updateOne({},{ $pull: {satVictims: satVictim} }, (err, res) => {  // update if neccessary
+					console.log(`***** ${satVictim} removed`)  // update if neccessary
+				})
+
+				resolve();
+				if (err)  {
+					reject();
+				};
+			})
+		})
+	});
+
+	promiseSetup.then(() => {
+		console.log('***** victim after promise', satVictim);  // update if neccessary
+		
+		return res.status(200).send(
+			{
+				"text": `_*${satVictim}*_${luckyMsg} \n${byeMsg} \n${emoji}`,  // update if neccessary
+				"attachments": [
+						anotherVictim.sat  // update if neccessary
+				]
+			}
+		)
+	})
+	.catch(err => console.log(err));
+	
+	return;
+}
+
+function reset(){
+	// first, delete all db
+	mongoose.connection.dropCollection('victims', (err) => {
+		console.log('\'victims\' collection has been removed.')
+		if (err) throw err;
+	});
+	// second, reseed all db
+	Victim.create({
+		mwVictims: monWed,    // update if neccessary
+		tthVictims: tueThu,    // update if neccessary
+		satVictims: sat    // update if neccessary
+	}, (err) => {
+		if (err) throw err;
+	});
+
+	return res.status(200).send(
+		{
+			"text": "Victim list has been reset! \n Enter `/victim mw`, `/victim tth`, or `/victim sat` to begin new hunt."    // update if neccessary
+		}
+	)
 }
 
 module.exports = router;
