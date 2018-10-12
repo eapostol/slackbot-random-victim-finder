@@ -1,12 +1,12 @@
 # README &middot; [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](#license)  
 
-This application was created to randomly select a student in class using a custom Slack slash command followed with the day of class. Chosen names will be removed from the database eliminating the possibilty of reselecting the same person. 
+This application was created to randomly select a student in class using a custom Slack slash command followed up with the class type. Chosen names will be removed from the database eliminating the possibilty of reselecting the same person. 
 
-To initialize enter, `/victim reset`. This action will reset the database with _all_ names for _all_ cohorts. This should be done when the names have been exhausted or when the list needs to be rebuilt.
+To initialize enter, `/victim reset`. This action will repopulate the database with _all_ names for _all_ cohorts. This should be done when the names have been exhausted or when the list needs to be rebuilt.
 
-To choose a name enter, `/victim mw`, `/victim tth` or `/victim sat` and voilà!
+To randomly select a name enter, `/victim mw`, `/victim tth` or `/victim sat` and voilà!
 
-<img src="./assets/screenshots/chosen.png" alt="screenshot of chosen student" width="60%"/>
+<img src="https://media.giphy.com/media/5vUN4Nlv5pEp0mrDU7/giphy.gif" alt="screenshot of chosen student" width="60%"/>
 
 ## Table of Contents
 
@@ -25,9 +25,10 @@ $ nodemon index.js
 ```
 Set up within Slack is still required (i.e. slash command, interactive message, db).
 
-Note to self: command to view the log within Heroku is `heroku logs --source app` or `heroku logs --tail` (realtime).
+Hosting on Heroku using the free tier may result in a slight response delay while the server spins up.
 
-<sub>Hosting on Heroku using the free tier may result in a slight response delay while the server spins up.</sub>
+<sub>Note to self: command to view the log within Heroku is `heroku logs --source app` or `heroku logs --tail` (realtime).</sub>
+
 
 ## Implementation
 
@@ -47,7 +48,7 @@ To use this within your own Slack workspace the following elements will require 
 * Slack Integration. Create a [new app](https://api.slack.com/apps) and develop it in your Slack workspace.
 	* Basic Information. Fill in the App Name, Short Description and Background Color. Included in the assets folder is an [image file](./assets/crosshairs.jpeg) that can be used for the app icon. 
 	* Interactive Components. Turn this on. The Request URL should point back to your server with `/api/victims/` appended to the end. 
-	* Slash Commands. Create a new command using `/victim`. This can be updated to your liking. The Request URL should point back to your server but with `/api/victims/` appended to the end. The custom name used here should be the same used in Interactive Components. Give your app a short description and any usage hint(s) (e.g. "Use `/victim mw`, `/victim tth`, `/victim sat` or `/victim reset`")
+	* Slash Commands. Create a new command using `/victim`. This can be updated to your liking. The Request URL should point back to your server but with `/api/victims/` appended to the end. Give your app a short description and any usage hint(s) (e.g. "Use `/victim mw`, `/victim tth`, `/victim sat` or `/victim reset`")
 	* OAuth Tokens & Redirect URLs. Include the following Scopes: `commands`. Then click the Install App to Workspace button. No need to copy the access token.   
 * Key. Be sure to update the [key](./config/keys_prod.js) accordingly with the mLab URI.
 * [index.js](./index.js). Update the require path if changing the route structure. 
