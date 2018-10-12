@@ -15,13 +15,17 @@ const sat = monWed.concat(tueThu);  // update if neccessary
 // Load models
 const Victim = require('../../models/Victim');
 
+let byeMsg = '';
+let luckyMsg = '';
+let emoji = '';
+
 // post request
 router.post('/', (req, res) => {
 
 	// fyi, I did previously use Math.floor(Math.random() * x) but some felt the randomnes wasn't so random. therefore I am using random-js
-	let byeMsg = bye[randomNum.integer(0, (bye.length)-1)];
-	let luckyMsg = lucky[randomNum.integer(0, (lucky.length)-1)];
-	let emoji = emojis[randomNum.integer(0, (emojis.length)-1)];
+	byeMsg = bye[randomNum.integer(0, (bye.length)-1)];
+	luckyMsg = lucky[randomNum.integer(0, (lucky.length)-1)];
+	emoji = emojis[randomNum.integer(0, (emojis.length)-1)];
 	
 	const requestType = req.body.text;
 	// console.log('**** 1', req)
@@ -32,7 +36,65 @@ router.post('/', (req, res) => {
 		
 		let mwVictim = '';  // update if neccessary
 
-		mwVictimSearch(res)
+		let promiseSetup = new Promise((resolve, reject) => {
+			
+			// find the total number of victims in array
+			// `.aggregate` is a mongoDB method
+			Victim.aggregate([{ 
+				$project: {mwVictims: {$size: "$mwVictims"}}  // update if neccessary
+			}], (err, size) => {
+				if (err) throw err;
+				let number = size[0].mwVictims;  // update if neccessary
+				console.log('***** victim pool size', number)  
+
+				if(number === 0){
+					return res.status(200).send(
+						{
+							"text": 'Uh oh, no more victims. :cry: \n To get more, enter `/victim reset`.'
+						}
+					)
+				} 
+
+				// retrieve a random number
+				let singleVictim = randomNum.integer(1, number);
+				console.log('***** random single victim', singleVictim)
+
+				// select victim in array
+				Victim.aggregate([{
+					$project: {mwVictims: {$arrayElemAt: ["$mwVictims", singleVictim-1]}}  // update if neccessary
+				}]).exec((err, victim) => {
+					// tada! random user
+					mwVictim = victim[0].mwVictims  // update if neccessary
+					console.log('***** victim before promise', mwVictim);  // update if neccessary
+
+					// delete victim in array
+					Victim.updateOne({},{ $pull: {mwVictims: mwVictim} }, (err, res) => {  // update if neccessary
+						console.log(`***** ${mwVictim} removed`)  // update if neccessary
+					})
+
+					resolve();
+					if (err)  {
+						reject();
+					};
+				})
+			})
+		});
+
+		promiseSetup.then(() => {
+			console.log('***** victim after promise', mwVictim);  // update if neccessary
+			
+			return res.status(200).send(
+				{
+					"text": `_*${mwVictim}*_${luckyMsg} \n${byeMsg} \n${emoji}`,  // update if neccessary
+					"attachments": [
+							anotherVictim.mw  // update if neccessary
+					]
+				}
+			)
+		})
+		.catch(err => console.log(err));
+		
+		return;
 	}
 	if(requestType === 'tth'){  // update if neccessary
 
@@ -192,7 +254,63 @@ router.post('/', (req, res) => {
 		if(secondRequest.callback_id === 'hunt_victim_mw'){  // update if neccessary
 			let mwVictim = '';  // update if neccessary
 
-			mwVictimSearch(res)
+			let promiseSetup = new Promise((resolve, reject) => {
+				
+				// find the total number of victims in array
+				Victim.aggregate([{ 
+					$project: {mwVictims: {$size: "$mwVictims"}}  // update if neccessary
+				}], (err, size) => {
+					if (err) throw err;
+					let number = size[0].mwVictims;  // update if neccessary
+					console.log('***** victim pool size', number)  
+
+					if(number === 0){
+						return res.status(200).send(
+							{
+								"text": 'Uh oh, no more victims. :cry: \n To get more, enter `/victim reset`.'
+							}
+						)
+					} 
+					// retrieve a random number
+					let singleVictim = randomNum.integer(1, number);
+					console.log('***** random single victim', singleVictim)
+
+					// select victim in array
+					Victim.aggregate([{
+						$project: {mwVictims: {$arrayElemAt: ["$mwVictims", singleVictim-1]}}  // update if neccessary
+					}]).exec((err, victim) => {
+						// tada! random user
+						mwVictim = victim[0].mwVictims  // update if neccessary
+						console.log('***** victim before promise', mwVictim);  // update if neccessary
+
+						// delete victim in array
+						Victim.updateOne({},{ $pull: {mwVictims: mwVictim} }, (err, res) => {  // update if neccessary
+							console.log(`***** ${mwVictim} removed`)  // update if neccessary
+						})
+
+						resolve();
+						if (err)  {
+							reject();
+						};
+					})
+				})
+			});
+
+			promiseSetup.then(() => {
+				console.log('***** victim after promise', mwVictim);  // update if neccessary
+				
+				return res.status(200).send(
+					{
+						"text": `_*${mwVictim}*_${luckyMsg} \n${byeMsg} \n${emoji}`,  // update if neccessary
+						"attachments": [
+							anotherVictim.mw  // update if neccessary
+						]
+					}
+				)
+			})
+			.catch(err => console.log(err));
+			
+			return;
 		}
 		if(secondRequest.callback_id === 'hunt_victim_tth'){    // update if neccessary
 			let tthVictim = '';  // update if neccessary
@@ -333,66 +451,8 @@ router.post('/', (req, res) => {
 	}
 });
 
-function mwVictimSearch(res){
-	let promiseSetup = new Promise((resolve, reject) => {
-			
-		// find the total number of victims in array
-		// `.aggregate` is a mongoDB method
-		Victim.aggregate([{ 
-			$project: {mwVictims: {$size: "$mwVictims"}}  // update if neccessary
-		}], (err, size) => {
-			if (err) throw err;
-			let number = size[0].mwVictims;  // update if neccessary
-			console.log('***** victim pool size', number)  
-
-			if(number === 0){
-				return res.status(200).send(
-					{
-						"text": 'Uh oh, no more victims. :cry: \n To get more, enter `/victim reset`.'
-					}
-				)
-			} 
-
-			// retrieve a random number
-			let singleVictim = randomNum.integer(1, number);
-			console.log('***** random single victim', singleVictim)
-
-			// select victim in array
-			Victim.aggregate([{
-				$project: {mwVictims: {$arrayElemAt: ["$mwVictims", singleVictim-1]}}  // update if neccessary
-			}]).exec((err, victim) => {
-				// tada! random user
-				mwVictim = victim[0].mwVictims  // update if neccessary
-				console.log('***** victim before promise', mwVictim);  // update if neccessary
-
-				// delete victim in array
-				Victim.updateOne({},{ $pull: {mwVictims: mwVictim} }, (err, res) => {  // update if neccessary
-					console.log(`***** ${mwVictim} removed`)  // update if neccessary
-				})
-
-				resolve();
-				if (err)  {
-					reject();
-				};
-			})
-		})
-	});
-
-	promiseSetup.then(() => {
-		console.log('***** victim after promise', mwVictim);  // update if neccessary
-		
-		return res.status(200).send(
-			{
-				"text": `_*${mwVictim}*_${luckyMsg} \n${byeMsg} \n${emoji}`,  // update if neccessary
-				"attachments": [
-						anotherVictim.mw  // update if neccessary
-				]
-			}
-		)
-	})
-	.catch(err => console.log(err));
+function mwVictimSearch(){
 	
-	return;
 };
 
 
