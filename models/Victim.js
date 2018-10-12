@@ -1,16 +1,18 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
+ 
+
 const VictimSchema = new Schema ({
-	mwVictims: {
+	mwVictims: {  // TODO: update with the appropriate class name if needed
 		type: [String], // array of strings
 		required: true
 	},
-	tthVictims: {
+	tthVictims: {  // TODO: update with the appropriate class name if needed
 		type: [String], // array of strings
 		required: true
 	},
-	satVictims: {
+	satVictims: {  // TODO: update with the appropriate class name if needed
 		type: [String], // array of strings
 		required: true
 	}

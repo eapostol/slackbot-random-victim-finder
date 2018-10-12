@@ -1,7 +1,7 @@
-module.exports.mw = {
+module.exports.mw = {  // update name accordingly
 	"title": "Click button to find another victim.",
 	"fallback": "Click button to find another victim.",
-	"callback_id": "hunt_victim_mw",
+	"callback_id": "hunt_victim_mw",  // update name accordingly
 	"attachment_type": "default",
 	"color": "#38f5be",
 	"actions": [
@@ -14,10 +14,10 @@ module.exports.mw = {
 	]
 }
 
-module.exports.tth = {
+module.exports.tth = {  // update name accordingly
 	"title": "Click button to find another victim.",
 	"fallback": "Click button to find another victim.",
-	"callback_id": "hunt_victim_tth",
+	"callback_id": "hunt_victim_tth",  // update name accordingly
 	"attachment_type": "default",
 	"color": "#7ee0ff",
 	"actions": [
@@ -30,10 +30,10 @@ module.exports.tth = {
 	]
 }
 
-module.exports.sat = {
+module.exports.sat = {  // update name accordingly
 	"title": "Click button to find another victim.",
 	"fallback": "Click button to find another victim.",
-	"callback_id": "hunt_victim_sat",
+	"callback_id": "hunt_victim_sat",  // update name accordingly
 	"attachment_type": "default",
 	"color": "#c481fb",
 	"actions": [

@@ -10,7 +10,7 @@ const emojis = require('../../options/emojis');
 const anotherVictim = require('../../options/anotherVictim');
 const lucky = require('../../options/lucky');
 
-const sat = monWed.concat(tueThu); 
+const sat = monWed.concat(tueThu);  // update if neccessary
 
 // Load models
 const Victim = require('../../models/Victim');
@@ -28,20 +28,21 @@ router.post('/', (req, res) => {
 	// console.log('**** 2', req.body);
 	// console.log('**** 3', requestType);
 	
-	if(requestType === 'mw'){
+	if(requestType === 'mw'){  // update if neccessary
 		
-		let mwVictim = '';
+		let mwVictim = '';  // update if neccessary
 
 		let promiseSetup = new Promise((resolve, reject) => {
 			
 			// find the total number of victims in array
+			// `.aggregate` is a mongoDB method
 			Victim.aggregate([{ 
-				$project: {mwVictims: {$size: "$mwVictims"}}  // swap out class
+				$project: {mwVictims: {$size: "$mwVictims"}}  // update if neccessary
 			}], (err, size) => {
 				if (err) throw err;
-				let arrSize = size[0].mwVictims;  // swap out class
+				let arrSize = size[0].mwVictims;  // update if neccessary
 				console.log('***** victim pool size', arrSize)  
-				let number = size[0].mwVictims;  // swap out class
+				let number = size[0].mwVictims;  // update if neccessary
 
 				if(arrSize === 0){
 					return res.status(200).send(
@@ -57,15 +58,15 @@ router.post('/', (req, res) => {
 
 				// select victim in array
 				Victim.aggregate([{
-					$project: {mwVictims: {$arrayElemAt: ["$mwVictims", singleVictim-1]}}  // swap out class
+					$project: {mwVictims: {$arrayElemAt: ["$mwVictims", singleVictim-1]}}  // update if neccessary
 				}]).exec((err, victim) => {
 					// tada! random user
-					mwVictim = victim[0].mwVictims  // swap out class
-					console.log('***** victim before promise', mwVictim);  // swap out class
+					mwVictim = victim[0].mwVictims  // update if neccessary
+					console.log('***** victim before promise', mwVictim);  // update if neccessary
 
 					// delete victim in array
-					Victim.updateOne({},{ $pull: {mwVictims: mwVictim} }, (err, res) => {  // swap out class
-						console.log(`***** ${mwVictim} removed`)  // swap out class
+					Victim.updateOne({},{ $pull: {mwVictims: mwVictim} }, (err, res) => {  // update if neccessary
+						console.log(`***** ${mwVictim} removed`)  // update if neccessary
 					})
 
 					resolve();
@@ -77,13 +78,13 @@ router.post('/', (req, res) => {
 		});
 
 		promiseSetup.then(() => {
-			console.log('***** victim after promise', mwVictim);  // swap out class
+			console.log('***** victim after promise', mwVictim);  // update if neccessary
 			
 			return res.status(200).send(
 				{
-					"text": `_*${mwVictim}*_${luckyMsg} \n${byeMsg} \n${emoji}`,  // swap out class
+					"text": `_*${mwVictim}*_${luckyMsg} \n${byeMsg} \n${emoji}`,  // update if neccessary
 					"attachments": [
-							anotherVictim.mw  // swap out class
+							anotherVictim.mw  // update if neccessary
 					]
 				}
 			)
@@ -92,7 +93,7 @@ router.post('/', (req, res) => {
 		
 		return;
 	}
-	if(requestType === 'tth'){
+	if(requestType === 'tth'){  // update if neccessary
 
 		let tthVictim = '';
 
@@ -100,12 +101,12 @@ router.post('/', (req, res) => {
 			
 			// find the total number of victims in array
 			Victim.aggregate([{ 
-				$project: {tthVictims: {$size: "$tthVictims"}}  // swap out class
+				$project: {tthVictims: {$size: "$tthVictims"}}  // update if neccessary
 			}], (err, size) => {
 				if (err) throw err;
-				let arrSize = size[0].tthVictims;  // swap out class
+				let arrSize = size[0].tthVictims;  // update if neccessary
 				console.log('***** victim pool size', arrSize)  
-				let number = size[0].tthVictims;  // swap out class
+				let number = size[0].tthVictims;  // update if neccessary
 
 				if(arrSize === 0){
 					return res.status(200).send(
@@ -121,15 +122,15 @@ router.post('/', (req, res) => {
 
 				// select victim in array
 				Victim.aggregate([{
-					$project: {tthVictims: {$arrayElemAt: ["$tthVictims", singleVictim-1]}}  // swap out class
+					$project: {tthVictims: {$arrayElemAt: ["$tthVictims", singleVictim-1]}}  // update if neccessary
 				}]).exec((err, victim) => {
 					// tada! random user
-					tthVictim = victim[0].tthVictims  // swap out class
-					console.log('***** victim before promise', tthVictim);  // swap out class
+					tthVictim = victim[0].tthVictims  // update if neccessary
+					console.log('***** victim before promise', tthVictim);  // update if neccessary
 
 					// delete victim in array
-					Victim.updateOne({},{ $pull: {tthVictims: tthVictim} }, (err, res) => {  // swap out class
-						console.log(`***** ${tthVictim} removed`)  // swap out class
+					Victim.updateOne({},{ $pull: {tthVictims: tthVictim} }, (err, res) => {  // update if neccessary
+						console.log(`***** ${tthVictim} removed`)  // update if neccessary
 					})
 
 					resolve();
@@ -141,13 +142,13 @@ router.post('/', (req, res) => {
 		});
 
 		promiseSetup.then(() => {
-			console.log('***** victim after promise', tthVictim);  // swap out class
+			console.log('***** victim after promise', tthVictim);  // update if neccessary
 			
 			return res.status(200).send(
 				{
-					"text": `_*${tthVictim}*_${luckyMsg} \n${byeMsg} \n${emoji}`,  // swap out class
+					"text": `_*${tthVictim}*_${luckyMsg} \n${byeMsg} \n${emoji}`,  // update if neccessary
 					"attachments": [
-							anotherVictim.tth  // swap out class
+							anotherVictim.tth  // update if neccessary
 					]
 				}
 			)
@@ -156,20 +157,20 @@ router.post('/', (req, res) => {
 		
 		return;
 	}
-	if(requestType === 'sat'){
+	if(requestType === 'sat'){  // update if neccessary
 		
-		let satVictim = '';
+		let satVictim = '';  // update if neccessary
 
 		let promiseSetup = new Promise((resolve, reject) => {
 			
 			// find the total number of victims in array
 			Victim.aggregate([{ 
-				$project: {satVictims: {$size: "$satVictims"}}  // swap out class
+				$project: {satVictims: {$size: "$satVictims"}}  // update if neccessary
 			}], (err, size) => {
 				if (err) throw err;
-				let arrSize = size[0].satVictims;  // swap out class
+				let arrSize = size[0].satVictims;  // update if neccessary
 				console.log('***** victim pool size', arrSize)  
-				let number = size[0].satVictims;  // swap out class
+				let number = size[0].satVictims;  // update if neccessary
 
 				if(arrSize === 0){
 					return res.status(200).send(
@@ -185,15 +186,15 @@ router.post('/', (req, res) => {
 
 				// select victim in array
 				Victim.aggregate([{
-					$project: {satVictims: {$arrayElemAt: ["$satVictims", singleVictim-1]}}  // swap out class
+					$project: {satVictims: {$arrayElemAt: ["$satVictims", singleVictim-1]}}  // update if neccessary
 				}]).exec((err, victim) => {
 					// tada! random user
-					satVictim = victim[0].satVictims  // swap out class
-					console.log('***** victim before promise', satVictim);  // swap out class
+					satVictim = victim[0].satVictims  // update if neccessary
+					console.log('***** victim before promise', satVictim);  // update if neccessary
 
 					// delete victim in array
-					Victim.updateOne({},{ $pull: {satVictims: satVictim} }, (err, res) => {  // swap out class
-						console.log(`***** ${satVictim} removed`)  // swap out class
+					Victim.updateOne({},{ $pull: {satVictims: satVictim} }, (err, res) => {  // update if neccessary
+						console.log(`***** ${satVictim} removed`)  // update if neccessary
 					})
 
 					resolve();
@@ -205,13 +206,13 @@ router.post('/', (req, res) => {
 		});
 
 		promiseSetup.then(() => {
-			console.log('***** victim after promise', satVictim);  // swap out class
+			console.log('***** victim after promise', satVictim);  // update if neccessary
 			
 			return res.status(200).send(
 				{
-					"text": `_*${satVictim}*_${luckyMsg} \n${byeMsg} \n${emoji}`,  // swap out class
+					"text": `_*${satVictim}*_${luckyMsg} \n${byeMsg} \n${emoji}`,  // update if neccessary
 					"attachments": [
-							anotherVictim.sat  // swap out class
+							anotherVictim.sat  // update if neccessary
 					]
 				}
 			)
@@ -229,40 +230,39 @@ router.post('/', (req, res) => {
 		});
 		// second, reseed all db
 		Victim.create({
-			mwVictims: monWed,
-			tthVictims: tueThu,
-			satVictims: sat
+			mwVictims: monWed,    // update if neccessary
+			tthVictims: tueThu,    // update if neccessary
+			satVictims: sat    // update if neccessary
 		}, (err) => {
 			if (err) throw err;
 		});
 
 		return res.status(200).send(
 			{
-				"text": "Victim list has been reset! \n Enter `/victim mw`, `/victim tth`, or `/victim sat` to begin new hunt."
+				"text": "Victim list has been reset! \n Enter `/victim mw`, `/victim tth`, or `/victim sat` to begin new hunt."    // update if neccessary
 			}
 	)}
 
 	// NOTE: when button is clicked on
-	// if(req.body.callback_id === 'hunt_victim_mw'){
 	if(req.body.payload){
 		const secondRequest = JSON.parse(req.body.payload);
 		// console.log('**** 4', req.body.payload);
 		// console.log('**** 5', req.body.payload.callback_id); 
 		// console.log('**** 6', secondRequest.callback_id);
 
-		if(secondRequest.callback_id === 'hunt_victim_mw'){
-			let mwVictim = '';  // swap out class
+		if(secondRequest.callback_id === 'hunt_victim_mw'){  // update if neccessary
+			let mwVictim = '';  // update if neccessary
 
 			let promiseSetup = new Promise((resolve, reject) => {
 				
 				// find the total number of victims in array
 				Victim.aggregate([{ 
-					$project: {mwVictims: {$size: "$mwVictims"}}  // swap out class
+					$project: {mwVictims: {$size: "$mwVictims"}}  // update if neccessary
 				}], (err, size) => {
 					if (err) throw err;
-					let arrSize = size[0].mwVictims;  // swap out class
+					let arrSize = size[0].mwVictims;  // update if neccessary
 					console.log('***** victim pool size', arrSize)  
-					let number = size[0].mwVictims;  // swap out class
+					let number = size[0].mwVictims;  // update if neccessary
 
 					if(arrSize === 0){
 						return res.status(200).send(
@@ -277,15 +277,15 @@ router.post('/', (req, res) => {
 
 					// select victim in array
 					Victim.aggregate([{
-						$project: {mwVictims: {$arrayElemAt: ["$mwVictims", singleVictim-1]}}  // swap out class
+						$project: {mwVictims: {$arrayElemAt: ["$mwVictims", singleVictim-1]}}  // update if neccessary
 					}]).exec((err, victim) => {
 						// tada! random user
-						mwVictim = victim[0].mwVictims  // swap out class
-						console.log('***** victim before promise', mwVictim);  // swap out class
+						mwVictim = victim[0].mwVictims  // update if neccessary
+						console.log('***** victim before promise', mwVictim);  // update if neccessary
 
 						// delete victim in array
-						Victim.updateOne({},{ $pull: {mwVictims: mwVictim} }, (err, res) => {  // swap out class
-							console.log(`***** ${mwVictim} removed`)  // swap out class
+						Victim.updateOne({},{ $pull: {mwVictims: mwVictim} }, (err, res) => {  // update if neccessary
+							console.log(`***** ${mwVictim} removed`)  // update if neccessary
 						})
 
 						resolve();
@@ -297,13 +297,13 @@ router.post('/', (req, res) => {
 			});
 
 			promiseSetup.then(() => {
-				console.log('***** victim after promise', mwVictim);  // swap out class
+				console.log('***** victim after promise', mwVictim);  // update if neccessary
 				
 				return res.status(200).send(
 					{
-						"text": `_*${mwVictim}*_${luckyMsg} \n${byeMsg} \n${emoji}`,  // swap out class
+						"text": `_*${mwVictim}*_${luckyMsg} \n${byeMsg} \n${emoji}`,  // update if neccessary
 						"attachments": [
-							anotherVictim.mw  // swap out class
+							anotherVictim.mw  // update if neccessary
 						]
 					}
 				)
@@ -312,19 +312,19 @@ router.post('/', (req, res) => {
 			
 			return;
 		}
-		if(secondRequest.callback_id === 'hunt_victim_tth'){
-			let tthVictim = '';  // swap out class
+		if(secondRequest.callback_id === 'hunt_victim_tth'){    // update if neccessary
+			let tthVictim = '';  // update if neccessary
 
 			let promiseSetup = new Promise((resolve, reject) => {
 				
 				// find the total number of victims in array
 				Victim.aggregate([{ 
-					$project: {tthVictims: {$size: "$tthVictims"}}  // swap out class
+					$project: {tthVictims: {$size: "$tthVictims"}}  // update if neccessary
 				}], (err, size) => {
 					if (err) throw err;
-					let arrSize = size[0].tthVictims;  // swap out class
+					let arrSize = size[0].tthVictims;  // update if neccessary
 					console.log('***** victim pool size', arrSize)  
-					let number = size[0].tthVictims;  // swap out class
+					let number = size[0].tthVictims;  // update if neccessary
 
 					if(arrSize === 0){
 						return res.status(200).send(
@@ -340,15 +340,15 @@ router.post('/', (req, res) => {
 
 					// select victim in array
 					Victim.aggregate([{
-						$project: {tthVictims: {$arrayElemAt: ["$tthVictims", singleVictim-1]}}  // swap out class
+						$project: {tthVictims: {$arrayElemAt: ["$tthVictims", singleVictim-1]}}  // update if neccessary
 					}]).exec((err, victim) => {
 						// tada! random user
-						tthVictim = victim[0].tthVictims  // swap out class
-						console.log('***** victim before promise', tthVictim);  // swap out class
+						tthVictim = victim[0].tthVictims  // update if neccessary
+						console.log('***** victim before promise', tthVictim);  // update if neccessary
 
 						// delete victim in array
-						Victim.updateOne({},{ $pull: {tthVictims: tthVictim} }, (err, res) => {  // swap out class
-							console.log(`***** ${tthVictim} removed`)  // swap out class
+						Victim.updateOne({},{ $pull: {tthVictims: tthVictim} }, (err, res) => {  // update if neccessary
+							console.log(`***** ${tthVictim} removed`)  // update if neccessary
 						})
 
 						resolve();
@@ -360,13 +360,13 @@ router.post('/', (req, res) => {
 			});
 
 			promiseSetup.then(() => {
-				console.log('***** victim after promise', tthVictim);  // swap out class
+				console.log('***** victim after promise', tthVictim);  // update if neccessary
 				
 				return res.status(200).send(
 					{
-						"text": `_*${tthVictim}*_${luckyMsg} \n${byeMsg} \n${emoji}`,  // swap out class
+						"text": `_*${tthVictim}*_${luckyMsg} \n${byeMsg} \n${emoji}`,  // update if neccessary
 						"attachments": [
-							anotherVictim.tth  // swap out class
+							anotherVictim.tth  // update if neccessary
 						]
 					}
 				)
@@ -375,19 +375,19 @@ router.post('/', (req, res) => {
 			
 			return;
 		}
-		if(secondRequest.callback_id === 'hunt_victim_sat'){
-			let satVictim = '';  // swap out class
+		if(secondRequest.callback_id === 'hunt_victim_sat'){  // update if neccessary
+			let satVictim = '';  // update if neccessary
 
 			let promiseSetup = new Promise((resolve, reject) => {
 				
 				// find the total number of victims in array
 				Victim.aggregate([{ 
-					$project: {satVictims: {$size: "$satVictims"}}  // swap out class
+					$project: {satVictims: {$size: "$satVictims"}}  // update if neccessary
 				}], (err, size) => {
 					if (err) throw err;
-					let arrSize = size[0].satVictims;  // swap out class
+					let arrSize = size[0].satVictims;  // update if neccessary
 					console.log('***** victim pool size', arrSize)  
-					let number = size[0].satVictims;  // swap out class
+					let number = size[0].satVictims;  // update if neccessary
 
 					if(arrSize === 0){
 						return res.status(200).send(
@@ -403,15 +403,15 @@ router.post('/', (req, res) => {
 
 					// select victim in array
 					Victim.aggregate([{
-						$project: {satVictims: {$arrayElemAt: ["$satVictims", singleVictim-1]}}  // swap out class
+						$project: {satVictims: {$arrayElemAt: ["$satVictims", singleVictim-1]}}  // update if neccessary
 					}]).exec((err, victim) => {
 						// tada! random user
-						satVictim = victim[0].satVictims  // swap out class
-						console.log('***** victim before promise', satVictim);  // swap out class
+						satVictim = victim[0].satVictims  // update if neccessary
+						console.log('***** victim before promise', satVictim);  // update if neccessary
 
 						// delete victim in array
-						Victim.updateOne({},{ $pull: {satVictims: satVictim} }, (err, res) => {  // swap out class
-							console.log(`***** ${satVictim} removed`)  // swap out class
+						Victim.updateOne({},{ $pull: {satVictims: satVictim} }, (err, res) => {  // update if neccessary
+							console.log(`***** ${satVictim} removed`)  // update if neccessary
 						})
 
 						resolve();
@@ -423,13 +423,13 @@ router.post('/', (req, res) => {
 			});
 
 			promiseSetup.then(() => {
-				console.log('***** victim after promise', satVictim);  // swap out class
+				console.log('***** victim after promise', satVictim);  // update if neccessary
 				
 				return res.status(200).send(
 					{
-						"text": `_*${satVictim}*_${luckyMsg} \n${byeMsg} \n${emoji}`,  // swap out class
+						"text": `_*${satVictim}*_${luckyMsg} \n${byeMsg} \n${emoji}`,  // update if neccessary
 						"attachments": [
-							anotherVictim.sat  // swap out class
+							anotherVictim.sat  // update if neccessary
 						]
 					}
 				)
