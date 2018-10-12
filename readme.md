@@ -2,11 +2,12 @@
 
 This application was created to randomly select a student in class using a custom Slack slash command followed up with the class type. Chosen names will be removed from the database eliminating the possibilty of reselecting the same person. 
 
+<img src="https://media.giphy.com/media/3niFSKZgmKGEt9u0Dt/giphy.gif" alt="screenshot of chosen student" width="60%"/>
+
 To initialize enter, `/victim reset`. This action will repopulate the database with _all_ names for _all_ cohorts. This should be done when the names have been exhausted or when the list needs to be rebuilt.
 
 To randomly select a name enter, `/victim mw`, `/victim tth` or `/victim sat` and voilà!
 
-<img src="https://media.giphy.com/media/3niFSKZgmKGEt9u0Dt/giphy.gif" alt="screenshot of chosen student" width="60%"/>
 
 ## Table of Contents
 
