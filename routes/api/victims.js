@@ -185,7 +185,7 @@ router.post('/', (req, res) => {
 	)}
 
 	// NOTE: when button is clicked on
-	if(req.body.payload){
+	else (req.body.payload){
 		const secondRequest = JSON.parse(req.body.payload);
 		// console.log('**** 4', req.body.payload);
 		// console.log('**** 5', req.body.payload.callback_id); 
@@ -326,13 +326,14 @@ router.post('/', (req, res) => {
 				}
 			)
 		}
-	} else {
-		return res.status(200).send(
-			{
-				"text": `Zoinks! \nSomething doesn't look right. \nPlease try again. \n${emoji}`
-			}
-		)
-	}
+	} 
+	// else {
+	// 	return res.status(200).send(
+	// 		{
+	// 			"text": `Zoinks! \nSomething doesn't look right. \nPlease try again. \n${emoji}`
+	// 		}
+	// 	)
+	// }
 });
 
 function mwVictimSearch(res){
